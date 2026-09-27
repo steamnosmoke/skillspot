@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SkillSpot — расписание, которое собирает себя само</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+
+    --ink:#2A1B3D;
+    --paper:#FFFFFF;
+    --paper-2:#F6F1FA;
+    --sub:#6B6078;
+    --line:#E6DEEF;
+
+    --brand:#6B3FA0;
+    --brand-ink:#3F2461;
+    --brand-tint:#EEE4F7;
+
+    --mustard:#C9A227;
+    --mustard-ink:#6B4E0F;
+    --green:#4C8F58;
+    --green-ink:#254A2C;
+
+    --sport:#5FA36B;
+    --art:#C9A227;
+    --music:#6B3FA0;
+    --lang:#3E7A4A;
+    --tutor:#A5821F;
+    --dance:#8B5FBE;
+    --fitness:#4C8F58;
+    --school:#7A5D12;
+
+    --shadow: 0 20px 45px rgba(107,63,160,0.16);
+    --shadow-sm: 0 8px 20px rgba(107,63,160,0.12);
+  }
+  html{scroll-padding-top:76px; scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  *{box-sizing:border-box;}
+  ::selection{ background:var(--brand-tint); color:var(--brand-ink); }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#F1EEF7; --paper:#1E1730; --paper-2:#241B3A; --sub:#C7BBDD; --line:#3A2D55;
+      --brand-tint:#33254D;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#F1EEF7; --paper:#1E1730; --paper-2:#241B3A; --sub:#C7BBDD; --line:#3A2D55;
+    --brand-tint:#33254D;
+  }
+
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    font-size:16px; line-height:1.5;
+  }
+  h1,h2,h3{
+    font-family:"Big Shoulders Display","Arial Narrow",Arial,sans-serif;
+    font-weight:800; letter-spacing:0.01em; margin:0; color:var(--ink);
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  :focus-visible{ outline:2.5px solid var(--mustard); outline-offset:2px; border-radius:4px; }
+  button{ font-family:inherit; }
+
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-track{ background:var(--paper-2); }
+  ::-webkit-scrollbar-thumb{ background:var(--brand); border-radius:8px; }
+  html{ scrollbar-color:var(--brand) var(--paper-2); }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+  section{ padding:84px 0; }
+  @media (max-width:720px){ section{ padding:56px 0; } }
+
+  /* ---------- header ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--paper) 90%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:72px; }
+  .logo{ display:flex; align-items:center; gap:8px; font-family:"Big Shoulders Display",sans-serif; font-weight:800; font-size:22px; }
+  .logo .dot{ width:10px; height:10px; border-radius:50%; background:var(--mustard); }
+  nav.links{ display:flex; gap:28px; font-size:14.5px; font-weight:600; }
+  nav.links a{ color:var(--sub); position:relative; }
+  nav.links a:hover{ color:var(--ink); }
+  .nav-right{ display:flex; align-items:center; gap:18px; }
+  .nav-right .login{ font-size:14.5px; font-weight:600; color:var(--sub); }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    padding:11px 20px; border-radius:10px; font-weight:700; font-size:14.5px;
+    border:1.5px solid transparent; cursor:pointer; white-space:nowrap;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  @media (prefers-reduced-motion: reduce){ .btn{ transition:none; } }
+  .btn-primary{ background:var(--ink); color:var(--paper); }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:var(--shadow-sm); }
+  .btn-mustard{ background:var(--mustard); color:#3A2B04; }
+  .btn-mustard:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(201,162,39,0.35); }
+  .btn-outline{ background:transparent; border-color:var(--line); color:var(--ink); }
+  .btn-outline:hover{ border-color:var(--brand); color:var(--brand); }
+  .btn-sm{ padding:8px 14px; font-size:13px; border-radius:8px; }
+  .btn:active{ transform:translateY(0); }
+
+  .burger{ display:none; background:none; border:none; padding:6px; cursor:pointer; }
+  .burger span{ display:block; width:22px; height:2px; background:var(--ink); margin:5px 0; }
+  @media (max-width:860px){
+    nav.links{ display:none; }
+    .nav-right .login{ display:none; }
+    .burger{ display:block; }
+  }
+  .mobile-panel{ display:none; flex-direction:column; gap:14px; padding:16px 24px 24px; border-top:1px solid var(--line); }
+  .mobile-panel.open{ display:flex; }
+  .mobile-panel a{ font-weight:600; color:var(--ink); }
+
+  /* ---------- scrollspy rail ---------- */
+  .rail{
+    position:fixed; right:22px; top:50%; transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:14px; z-index:45;
+  }
+  .rail a{ width:9px; height:9px; border-radius:50%; background:var(--line); display:block; transition:transform .2s ease, background .2s ease; }
+  .rail a.active{ background:var(--brand); transform:scale(1.5); }
+  @media (max-width:1040px){ .rail{ display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; overflow:hidden; padding:88px 0 96px;
+    background:var(--ink); color:#F4F0FA;
+  }
+  .glow{ position:absolute; border-radius:50%; filter:blur(70px); opacity:.55; pointer-events:none; }
+  .glow-1{ width:420px; height:420px; background:var(--mustard); top:-140px; right:-100px; }
+  .glow-2{ width:360px; height:360px; background:var(--green); bottom:-160px; right:220px; }
+  .hero-grid{ position:relative; display:grid; grid-template-columns:1.05fr 0.95fr; gap:52px; align-items:center; z-index:2; }
+  @media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; gap:40px; } }
+  .eyebrow-free{ font-size:14.5px; color:#D9C9F0; font-weight:700; margin-bottom:14px; }
+  h1.hero-title{ font-size:54px; line-height:1.03; margin-bottom:20px; color:#fff; }
+  @media (max-width:520px){ h1.hero-title{ font-size:36px; } }
+  .hero p.lead{ font-size:17px; color:#CFC2E6; max-width:480px; margin-bottom:28px; }
+
+  .finder{
+    display:flex; gap:10px; flex-wrap:wrap; background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.16); border-radius:14px; padding:10px;
+  }
+  .finder select, .finder input{
+    border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.06); color:#fff;
+    border-radius:9px; padding:11px 12px; font-size:14px; font-family:inherit;
+    flex:1; min-width:130px;
+  }
+  .finder select option{ color:#111; }
+  .finder input::placeholder{ color:#C7BBDD; }
+  .finder .btn{ flex:0 0 auto; }
+  @media (max-width:520px){ .finder{ flex-direction:column; } .finder select, .finder input{ min-width:100%; } }
+
+  .trust-line{ margin-top:16px; font-size:13.5px; color:#B8A9D4; }
+  .trust-line b{ color:#fff; }
+
+  /* interactive planner card */
+  .schedule-card{
+    background:var(--paper); border-radius:20px; box-shadow:var(--shadow); padding:20px; position:relative; color:var(--ink);
+  }
+  .schedule-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; }
+  .schedule-head .cal-title{ font-family:"Big Shoulders Display",sans-serif; font-weight:800; font-size:19px; }
+  .schedule-head .cal-sub{ font-size:12px; color:var(--sub); }
+  .week{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  .day{ display:flex; flex-direction:column; gap:6px; }
+  .day .d-label{ font-size:11px; text-align:center; color:var(--sub); font-weight:700; }
+  .slot{ border-radius:8px; padding:6px 5px; font-size:9.5px; line-height:1.25; color:#fff; font-weight:600; min-height:38px; display:flex; align-items:center; justify-content:center; text-align:center; }
+  .slot.empty{ background:var(--paper-2); border:1px dashed var(--line); min-height:38px; color:var(--sub); cursor:pointer; font-size:16px; font-weight:400; position:relative; }
+  .slot.empty:hover{ border-color:var(--brand); color:var(--brand); }
+  .add-menu{
+    position:absolute; z-index:10; background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    box-shadow:var(--shadow); padding:6px; display:none; flex-direction:column; gap:3px; min-width:120px;
+  }
+  .add-menu.open{ display:flex; }
+  .add-menu button{
+    border:none; background:none; text-align:left; font-size:11px; padding:6px 8px; border-radius:6px; cursor:pointer;
+    display:flex; align-items:center; gap:6px; color:var(--ink);
+  }
+  .add-menu button:hover{ background:var(--paper-2); }
+  .add-menu .sw{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
+  .legend-row{ display:flex; gap:14px; flex-wrap:wrap; margin-top:16px; font-size:11.5px; color:var(--sub); }
+  .legend-row .lg{ display:flex; align-items:center; gap:6px; }
+  .legend-row .sq{ width:9px; height:9px; border-radius:2px; }
+  .plan-count{
+    position:absolute; right:16px; bottom:-16px; background:var(--brand); color:#fff;
+    font-size:11.5px; font-weight:700; padding:8px 14px; border-radius:10px; box-shadow:var(--shadow-sm);
+  }
+
+  /* ---------- marquee ---------- */
+  .marquee-wrap{ overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper-2); padding:16px 0; }
+  .marquee{ display:flex; gap:14px; width:max-content; animation:scroll-left 32s linear infinite; }
+  @media (prefers-reduced-motion: reduce){ .marquee{ animation:none; flex-wrap:wrap; } }
+  .marquee-wrap:hover .marquee{ animation-play-state:paused; }
+  @keyframes scroll-left{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .m-chip{ display:flex; align-items:center; gap:8px; padding:9px 18px; border-radius:999px; background:var(--paper); border:1px solid var(--line); font-weight:700; font-size:14px; white-space:nowrap; }
+  .m-chip .dot{ width:8px; height:8px; border-radius:50%; }
+
+  /* ---------- stats ---------- */
+  .stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); }
+  @media (max-width:760px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
+  .stat{ padding:0 24px; border-left:1px solid var(--line); }
+  .stat:first-child{ border-left:none; padding-left:0; }
+  @media (max-width:760px){ .stat:nth-child(2n+1){ border-left:none; padding-left:0; } }
+  .stat b{ display:block; font-family:"Big Shoulders Display",sans-serif; font-size:44px; font-weight:800; color:var(--brand); }
+  .stat span{ font-size:13.5px; color:var(--sub); }
+
+  /* ---------- categories heading ---------- */
+  h2.section-title{ font-size:36px; margin-bottom:10px; }
+  p.section-lead{ color:var(--sub); font-size:15.5px; max-width:560px; margin-bottom:32px; }
+
+  /* ---------- journey / how it works ---------- */
+  .journey{ position:relative; }
+  .journey-line{ position:absolute; left:0; right:0; top:19px; height:2px; background:var(--line); }
+  @media (max-width:760px){ .journey-line{ display:none; } }
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; position:relative; }
+  @media (max-width:900px){ .steps{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:520px){ .steps{ grid-template-columns:1fr; } }
+  .step .num{
+    width:38px; height:38px; border-radius:50%; background:var(--paper); border:2px solid var(--brand);
+    color:var(--brand); font-family:"Big Shoulders Display",sans-serif; font-size:17px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:2;
+  }
+  .step h3{ font-size:18px; font-weight:700; margin:0 0 6px; font-family:"Inter",sans-serif; }
+  .step p{ font-size:14px; color:var(--sub); margin:0; }
+
+  /* ---------- providers ---------- */
+  .filter-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px; }
+  .filter-btn{
+    border:1.5px solid var(--line); background:var(--paper); color:var(--ink); border-radius:999px;
+    padding:9px 16px; font-size:13.5px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:7px;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .filter-btn .dot{ width:8px; height:8px; border-radius:50%; }
+  .filter-btn.active{ border-color:var(--ink); background:var(--ink); color:#fff; }
+  .filter-btn.active .dot{ box-shadow:0 0 0 2px rgba(255,255,255,0.5); }
+
+  .prov-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; grid-auto-flow:dense; }
+  @media (max-width:900px){ .prov-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .prov-grid{ grid-template-columns:1fr; } }
+  .prov-card{
+    border:1px solid var(--line); border-radius:16px; padding:20px; background:var(--paper);
+    display:flex; flex-direction:column; gap:10px; transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .prov-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-sm); }
+  .prov-card.big{ grid-row:span 2; justify-content:space-between; background:var(--brand-tint); border-color:transparent; }
+  .prov-card.hidden{ display:none; }
+  .prov-top{ display:flex; align-items:center; gap:8px; }
+  .prov-top .dot{ width:9px; height:9px; border-radius:50%; }
+  .prov-top span{ font-size:12.5px; color:var(--sub); font-weight:600; }
+  .prov-card h3{ font-family:"Inter",sans-serif; font-size:18px; font-weight:700; }
+  .prov-card.big h3{ font-size:24px; font-family:"Big Shoulders Display",sans-serif; }
+  .prov-card p{ font-size:13.5px; color:var(--sub); margin:0; }
+  .prov-meta{ display:flex; justify-content:space-between; align-items:center; font-size:13.5px; margin-top:auto; padding-top:8px; }
+  .prov-meta b{ font-size:15px; }
+  .rating{ color:var(--mustard-ink); font-weight:700; }
+  .empty-state{ display:none; text-align:center; padding:40px 0; color:var(--sub); font-size:14.5px; }
+  .empty-state.show{ display:block; }
+
+  /* ---------- audience tabs ---------- */
+  .tabs{ display:flex; gap:10px; margin-bottom:24px; }
+  .tab-btn{
+    border:1.5px solid var(--line); background:var(--paper); color:var(--sub); font-weight:700; font-size:14.5px;
+    border-radius:999px; padding:10px 20px; cursor:pointer;
+  }
+  .tab-btn.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  .tab-panel{ display:none; border:1px solid var(--line); border-radius:18px; padding:36px; background:var(--paper-2); }
+  .tab-panel.active{ display:block; }
+  .tab-panel h3{ font-family:"Big Shoulders Display",sans-serif; font-size:26px; margin-bottom:16px; }
+  .tab-panel ul{ list-style:none; margin:0 0 22px; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:12px 24px; }
+  @media (max-width:600px){ .tab-panel ul{ grid-template-columns:1fr; } }
+  .tab-panel li{ font-size:14.5px; color:var(--ink); display:flex; gap:10px; align-items:flex-start; }
+  .tab-panel li svg{ flex:0 0 auto; margin-top:3px; color:var(--brand); }
+
+  /* ---------- app ---------- */
+  .app-grid{ display:grid; grid-template-columns:1fr 0.9fr; gap:48px; align-items:center; }
+  @media (max-width:900px){ .app-grid{ grid-template-columns:1fr; } }
+  .app-badges{ display:flex; gap:10px; margin-top:22px; flex-wrap:wrap; }
+  .app-badge{ border:1.5px solid var(--line); border-radius:10px; padding:10px 16px; font-size:13.5px; font-weight:700; }
+  .phone{ background:var(--ink); border-radius:32px; padding:14px; max-width:280px; margin:0 auto; box-shadow:var(--shadow); }
+  .phone-screen{ background:var(--paper); border-radius:22px; padding:16px; min-height:420px; }
+  .phone-app-title{ font-family:"Big Shoulders Display",sans-serif; font-weight:800; font-size:17px; margin-bottom:12px; }
+  .phone-item{ display:flex; gap:10px; align-items:center; border:1px solid var(--line); border-radius:10px; padding:9px 10px; margin-bottom:8px; }
+  .phone-item .sq{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
+  .phone-item div span{ display:block; font-size:11px; color:var(--sub); }
+  .phone-item div b{ font-size:12.5px; }
+
+  /* ---------- reviews carousel ---------- */
+  .rev-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px; gap:16px; flex-wrap:wrap; }
+  .rev-nav{ display:flex; gap:8px; }
+  .rev-nav button{ width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line); background:var(--paper); cursor:pointer; font-size:16px; }
+  .rev-nav button:hover{ border-color:var(--brand); color:var(--brand); }
+  .rev-scroll{ display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:6px; scrollbar-width:none; }
+  .rev-scroll::-webkit-scrollbar{ display:none; }
+  .rev-card{ border:1px solid var(--line); border-radius:16px; padding:22px; background:var(--paper); scroll-snap-align:start; flex:0 0 320px; }
+  .rev-quote{ font-size:15px; margin-bottom:16px; }
+  .rev-who{ display:flex; align-items:center; gap:10px; }
+  .avatar{ width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:13px; flex:0 0 auto; }
+  .rev-who div b{ font-size:13.5px; display:block; }
+  .rev-who div span{ font-size:12px; color:var(--sub); }
+
+  /* ---------- loyalty ---------- */
+  .loyalty{ background:var(--ink); color:#F4F0FA; border-radius:24px; padding:48px; position:relative; overflow:hidden; }
+  .loyalty-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:32px; align-items:center; position:relative; z-index:2; }
+  @media (max-width:800px){ .loyalty-grid{ grid-template-columns:1fr; } }
+  .loyalty h2{ color:#fff; font-size:30px; margin-bottom:12px; }
+  .loyalty p{ color:#CFC2E6; font-size:15px; max-width:440px; }
+  .progress-wrap{ margin-top:22px; }
+  .progress-label{ display:flex; justify-content:space-between; font-size:12.5px; color:#CFC2E6; margin-bottom:8px; }
+  .progress-track{ height:10px; border-radius:999px; background:rgba(255,255,255,0.12); overflow:hidden; }
+  .progress-fill{ height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,var(--mustard),var(--green)); transition:width 1.1s cubic-bezier(.2,.8,.2,1); }
+  @media (prefers-reduced-motion: reduce){ .progress-fill{ transition:none; } }
+  .loy-list{ display:flex; flex-direction:column; gap:14px; }
+  .loy-item{ display:flex; gap:12px; align-items:flex-start; background:rgba(255,255,255,0.07); border-radius:12px; padding:14px 16px; }
+  .loy-item b{ display:block; font-size:14.5px; color:#fff; }
+  .loy-item span{ font-size:13px; color:#CFC2E6; }
+
+  /* ---------- cta band ---------- */
+  .cta-band{
+    border-radius:24px; padding:52px; background:var(--mustard); color:#3A2B04;
+    display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+  }
+  .cta-band h2{ font-size:32px; max-width:520px; color:#3A2B04; }
+  .cta-band .btn-primary{ background:#3A2B04; }
+
+  /* ---------- editable content & video blocks ---------- */
+  .edit-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
+  .edit-toggle{ display:none; }
+  .content-view{ font-size:15.5px; color:var(--ink); line-height:1.75; max-width:720px; white-space:pre-wrap; }
+  .content-edit textarea{
+    width:100%; min-height:170px; border:1px solid var(--line); border-radius:12px; padding:14px;
+    font-family:inherit; font-size:14.5px; resize:vertical; background:var(--paper); color:var(--ink);
+  }
+  .edit-actions{ display:flex; gap:10px; margin-top:12px; }
+  .video-view{
+    border:1px solid var(--line); border-radius:18px; overflow:hidden; background:var(--paper-2);
+    min-height:280px; display:flex; align-items:center; justify-content:center;
+  }
+  .video-view video{ width:100%; max-height:520px; display:block; background:#000; }
+  .video-placeholder{ color:var(--sub); font-size:14.5px; padding:70px 20px; text-align:center; max-width:340px; }
+  .video-edit{ border:1px dashed var(--line); border-radius:16px; padding:22px; background:var(--paper-2); }
+  .video-edit input[type="text"]{
+    width:100%; border:1px solid var(--line); border-radius:10px; padding:11px 14px;
+    font-size:14px; font-family:inherit; background:var(--paper); color:var(--ink);
+  }
+  .upload-hint{ font-size:12.5px; color:var(--sub); margin-top:10px; min-height:1em; }
+  [hidden]{ display:none !important; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--line); padding:52px 0 32px; }
+  .foot-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:32px; margin-bottom:36px; }
+  @media (max-width:760px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+  .foot-col h4{ font-size:13.5px; margin-bottom:14px; color:var(--sub); font-weight:700; }
+  .foot-col a{ display:block; font-size:14px; margin-bottom:10px; color:var(--ink); }
+  .foot-col a:hover{ color:var(--brand); }
+  .foot-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--sub); border-top:1px solid var(--line); padding-top:20px; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="ic-check" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="#top" class="logo"><span class="dot"></span>SkillSpot</a>
+    <nav class="links">
+      <a href="#categories">Каталог</a>
+      <a href="#how">Как это работает</a>
+      <a href="#audience">Для организаторов</a>
+      <a href="#app">Приложение</a>
+    </nav>
+    <div class="nav-right">
+      <a href="#" class="login">Войти</a>
+      <a href="#finder" class="btn btn-primary">Найти занятие</a>
+      <button class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#categories">Каталог</a>
+    <a href="#how">Как это работает</a>
+    <a href="#audience">Для организаторов</a>
+    <a href="#app">Приложение</a>
+    <a href="#" class="login">Войти</a>
+    <a href="#finder" class="btn btn-primary btn-sm" style="width:fit-content;">Найти занятие</a>
+  </div>
+</header>
+
+<nav class="rail" aria-label="Разделы страницы">
+  <a href="#top" data-rail class="active" aria-label="Начало"></a>
+  <a href="#categories" data-rail aria-label="Каталог"></a>
+  <a href="#how" data-rail aria-label="Как это работает"></a>
+  <a href="#providers" data-rail aria-label="Занятия рядом"></a>
+  <a href="#audience" data-rail aria-label="Для кого"></a>
+  <a href="#app" data-rail aria-label="Приложение"></a>
+  <a href="#content-block" data-rail aria-label="О проекте"></a>
+  <a href="#video-block" data-rail aria-label="Видео"></a>
+  <a href="#reviews" data-rail aria-label="Отзывы"></a>
+  <a href="#loyalty" data-rail aria-label="Лояльность"></a>
+</nav>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="glow glow-1"></span>
+    <span class="glow glow-2"></span>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow-free">Кружки, секции и репетиторы рядом с домом</div>
+        <h1 class="hero-title">Расписание, которое собирает себя само</h1>
+        <p class="lead">Нажмите «+» на свободном слоте справа и добавьте занятие — именно так SkillSpot заполняет календарь после каждой записи, без звонков администратору.</p>
+
+        <div class="finder" id="finder">
+          <select aria-label="Город">
+            <option>Казань</option>
+            <option>Москва</option>
+            <option>Санкт-Петербург</option>
+          </select>
+          <select aria-label="Категория">
+            <option>Любая категория</option>
+            <option>Спорт</option>
+            <option>Творчество</option>
+            <option>Музыка</option>
+            <option>Языки</option>
+          </select>
+          <input type="text" placeholder="Район или адрес">
+          <button class="btn btn-mustard">Найти занятие</button>
+        </div>
+        <p class="trust-line"><b>412</b> студий и репетиторов уже на карте Казани</p>
+      </div>
+
+      <div class="schedule-card">
+        <div class="schedule-head">
+          <div>
+            <div class="cal-title">Неделя Сони, 7 лет</div>
+            <div class="cal-sub">Попробуйте — нажмите «+»</div>
+          </div>
+        </div>
+        <div class="week" id="week"></div>
+        <div class="legend-row">
+          <span class="lg"><span class="sq" style="background:var(--sport);"></span>Спорт</span>
+          <span class="lg"><span class="sq" style="background:var(--lang);"></span>Языки</span>
+          <span class="lg"><span class="sq" style="background:var(--art);"></span>Творчество</span>
+          <span class="lg"><span class="sq" style="background:var(--music);"></span>Музыка</span>
+        </div>
+        <div class="plan-count" id="planCount">2 занятия на неделе</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap" id="categories">
+    <div class="marquee" id="marqueeTrack"></div>
+  </div>
+
+  <!-- STATS -->
+  <section>
+    <div class="wrap stats-grid">
+      <div class="stat"><b data-count="412">0</b><span>студий и репетиторов в базе</span></div>
+      <div class="stat"><b data-count="12">0</b><span>категорий занятий и секций</span></div>
+      <div class="stat"><b data-count="1" data-suffix=" клик">0</b><span>от выбора до записи</span></div>
+      <div class="stat"><b data-count="0" data-suffix="" data-literal="0">0</b><span>звонков, чтобы уточнить место</span></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="wrap">
+      <h2 class="section-title">Путь от поиска до первого занятия</h2>
+      <p class="section-lead">Четыре шага — без звонков и переписки, чтобы уточнить, остались ли места.</p>
+      <div class="journey">
+        <div class="journey-line"></div>
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <h3>Найдите занятие рядом</h3>
+            <p>Фильтр по району, возрасту и цене показывает только то, что реально подходит.</p>
+          </div>
+          <div class="step">
+            <div class="num">2</div>
+            <h3>Сравните и почитайте отзывы</h3>
+            <p>Рейтинг, отзывы других родителей и фото студии — прямо в карточке.</p>
+          </div>
+          <div class="step">
+            <div class="num">3</div>
+            <h3>Запишитесь и оплатите онлайн</h3>
+            <p>Место бронируется сразу после оплаты — свободные слоты видны в реальном времени.</p>
+          </div>
+          <div class="step">
+            <div class="num">4</div>
+            <h3>Расписание само появится в календаре</h3>
+            <p>Занятие и напоминание о нём попадают в личный календарь — переносить руками не нужно.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVIDERS -->
+  <section id="providers">
+    <div class="wrap">
+      <h2 class="section-title">Сейчас рядом с вами</h2>
+      <p class="section-lead">Отфильтруйте каталог по категории — карточки обновятся мгновенно, как в реальном поиске.</p>
+      <div class="filter-row" id="filterRow">
+        <button class="filter-btn active" data-filter="all">Все</button>
+        <button class="filter-btn" data-filter="sport"><span class="dot" style="background:var(--sport);"></span>Спорт</button>
+        <button class="filter-btn" data-filter="lang"><span class="dot" style="background:var(--lang);"></span>Языки</button>
+        <button class="filter-btn" data-filter="art"><span class="dot" style="background:var(--art);"></span>Творчество</button>
+        <button class="filter-btn" data-filter="music"><span class="dot" style="background:var(--music);"></span>Музыка</button>
+        <button class="filter-btn" data-filter="dance"><span class="dot" style="background:var(--dance);"></span>Танцы</button>
+        <button class="filter-btn" data-filter="fitness"><span class="dot" style="background:var(--fitness);"></span>Йога и фитнес</button>
+      </div>
+
+      <div class="prov-grid" id="provGrid">
+        <div class="prov-card big" data-cat="sport">
+          <div>
+            <div class="prov-top"><span class="dot" style="background:var(--sport);"></span><span>Спорт · плавание</span></div>
+            <h3>Секция «Дельфин»</h3>
+            <p>Бассейн 25 м, группы 5–8 лет, тренер с категорией. Пробное занятие — бесплатно.</p>
+          </div>
+          <div class="prov-meta"><span class="rating">★ 4.8</span><b>от 700 ₽/занятие</b></div>
+        </div>
+        <div class="prov-card" data-cat="lang">
+          <div class="prov-top"><span class="dot" style="background:var(--lang);"></span><span>Языки · английский</span></div>
+          <h3>Английский с Мариной</h3>
+          <p>Индивидуальные занятия онлайн и очно, подготовка к школе.</p>
+          <div class="prov-meta"><span class="rating">★ 4.9</span><b>от 900 ₽/занятие</b></div>
+        </div>
+        <div class="prov-card" data-cat="art">
+          <div class="prov-top"><span class="dot" style="background:var(--art);"></span><span>Творчество · рисование</span></div>
+          <h3>Студия «Палитра»</h3>
+          <p>Акварель и graphic-дизайн для детей 6–14 лет, малые группы.</p>
+          <div class="prov-meta"><span class="rating">★ 4.7</span><b>от 650 ₽/занятие</b></div>
+        </div>
+        <div class="prov-card" data-cat="music">
+          <div class="prov-top"><span class="dot" style="background:var(--music);"></span><span>Музыка · фортепиано</span></div>
+          <h3>Школа «Аккорд»</h3>
+          <p>Индивидуальные уроки, подготовка к концертам и экзаменам.</p>
+          <div class="prov-meta"><span class="rating">★ 4.8</span><b>от 1100 ₽/занятие</b></div>
+        </div>
+        <div class="prov-card" data-cat="dance">
+          <div class="prov-top"><span class="dot" style="background:var(--dance);"></span><span>Танцы · хип-хоп</span></div>
+          <h3>Студия «Ритм»</h3>
+          <p>Направления от хип-хопа до контемпа, взрослые и детские группы.</p>
+          <div class="prov-meta"><span class="rating">★ 4.6</span><b>от 550 ₽/занятие</b></div>
+        </div>
+        <div class="prov-card" data-cat="fitness">
+          <div class="prov-top"><span class="dot" style="background:var(--fitness);"></span><span>Йога и фитнес</span></div>
+          <h3>Йога-студия «Дыхание»</h3>
+          <p>Утренние и вечерние потоки, пробное занятие бесплатно.</p>
+          <div class="prov-meta"><span class="rating">★ 4.9</span><b>от 500 ₽/занятие</b></div>
+        </div>
+      </div>
+      <p class="empty-state" id="emptyState">Пока нет занятий в этой категории — загляните позже.</p>
+    </div>
+  </section>
+
+  <!-- AUDIENCE TABS -->
+  <section id="audience">
+    <div class="wrap">
+      <h2 class="section-title">Одна платформа — два сценария</h2>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="parents">Родителям и ученикам</button>
+        <button class="tab-btn" data-tab="orgs">Студиям и репетиторам</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-parents">
+        <h3>Для родителей и учеников</h3>
+        <ul>
+          <li><svg width="18" height="18"><use href="#ic-check"/></svg>Поиск занятий рядом с домом или школой</li>
+          <li><svg width="18" height="18"><use href="#ic-check"/></svg>Оплата и запись без звонков администратору</li>
+          <li><svg width="18" height="18"><use href="#ic-check"/></svg>Календарь и напоминания — сами появляются в телефоне</li>
+          <li><svg width="18" height="18"><use href="#ic-check"/></svg>Отзывы и рейтинг перед тем, как платить</li>
+        </ul>
+        <a href="#finder" class="btn btn-primary btn-sm">Найти занятие</a>
+      </div>
+
+      <div class="tab-panel" id="tab-orgs">
+        <h3>Для студий, секций и репетиторов</h3>
+        <ul>
+          <li><svg width="18" height="18"><use href="#ic-check"/></svg>Поток новых клиентов из каталога и поиска</li>
+          <li><svg width="18" height="18"><use href="#ic-check"/></svg>Приём онлайн-оплаты без отдельной кассы</li>
+          <li><svg width="18" height="18"><use href="#ic-check"/></svg>Управление расписанием и записями в одном месте</li>
+          <li><svg width="18" height="18"><use href="#ic-check"/></svg>Карточка с отзывами повышает доверие новых клиентов</li>
+        </ul>
+        <a href="#" class="btn btn-outline btn-sm">Разместить свои занятия</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <section id="app">
+    <div class="wrap app-grid">
+      <div>
+        <h2 class="section-title">Приложение держит расписание в кармане</h2>
+        <p class="section-lead">Push-напоминание перед занятием, история визитов и быстрая повторная запись — без звонков в студию.</p>
+        <div class="app-badges">
+          <span class="app-badge">App Store</span>
+          <span class="app-badge">Google Play</span>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-app-title">Мои занятия</div>
+          <div class="phone-item"><span class="sq" style="background:var(--sport);"></span><div><b>Плавание, «Дельфин»</b><span>Завтра, 18:00 · через 22 часа</span></div></div>
+          <div class="phone-item"><span class="sq" style="background:var(--lang);"></span><div><b>Английский с Мариной</b><span>Среда, 16:30</span></div></div>
+          <div class="phone-item"><span class="sq" style="background:var(--art);"></span><div><b>Студия «Палитра»</b><span>Суббота, 11:00</span></div></div>
+          <div class="phone-item"><span class="sq" style="background:var(--music);"></span><div><b>Школа «Аккорд»</b><span>Суббота, 13:00</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT (editable) -->
+  <section id="content-block">
+    <div class="wrap">
+      <div class="edit-head">
+        <h2 class="section-title" style="margin-bottom:0;">О проекте</h2>
+        <button class="btn btn-outline btn-sm edit-toggle" data-edit-target="content">Редактировать</button>
+      </div>
+      <div id="contentView" class="content-view"></div>
+      <div id="contentEdit" class="content-edit" hidden>
+        <textarea id="contentTextarea" aria-label="Текст раздела «О проекте»"></textarea>
+        <div class="edit-actions">
+          <button class="btn btn-primary btn-sm" id="contentSave">Сохранить</button>
+          <button class="btn btn-outline btn-sm" id="contentCancel">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO (editable) -->
+  <section id="video-block">
+    <div class="wrap">
+      <div class="edit-head">
+        <h2 class="section-title" style="margin-bottom:0;">Видео о проекте</h2>
+        <button class="btn btn-outline btn-sm edit-toggle" data-edit-target="video">Редактировать</button>
+      </div>
+      <div id="videoView" class="video-view"></div>
+      <div id="videoEdit" class="video-edit" hidden>
+        <input type="text" id="videoUrlInput" placeholder="Ссылка на видео (YouTube или прямая ссылка на .mp4)">
+        <div class="edit-actions">
+          <button class="btn btn-primary btn-sm" id="videoSave">Сохранить</button>
+          <button class="btn btn-outline btn-sm" id="videoCancel">Отмена</button>
+        </div>
+        <p class="upload-hint" id="uploadHint">Файл в этот статический сайт не загрузить — вставьте ссылку на видео, которое уже где-то размещено (YouTube, Google Drive с публичным доступом, ваш хостинг и т.д.).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <div class="wrap">
+      <div class="rev-head">
+        <div>
+          <h2 class="section-title" style="margin-bottom:6px;">Что говорят родители</h2>
+          <p class="section-lead" style="margin-bottom:0;">Пролистайте — здесь только реальные формулировки из интервью с пользователями.</p>
+        </div>
+        <div class="rev-nav">
+          <button id="revPrev" aria-label="Предыдущий отзыв">‹</button>
+          <button id="revNext" aria-label="Следующий отзыв">›</button>
+        </div>
+      </div>
+      <div class="rev-scroll" id="revScroll">
+        <div class="rev-card">
+          <p class="rev-quote">«Раньше вела три чата с тренерами, чтобы уточнить время. Теперь всё в одном приложении, и напоминания сами приходят.»</p>
+          <div class="rev-who"><span class="avatar" style="background:var(--sport);">А</span><div><b>Алина</b><span>мама двоих детей, Казань</span></div></div>
+        </div>
+        <div class="rev-card">
+          <p class="rev-quote">«Сравнила пять студий рисования по отзывам за один вечер. Раньше объезжала их по очереди.»</p>
+          <div class="rev-who"><span class="avatar" style="background:var(--art);">М</span><div><b>Мария</b><span>мама первоклассницы</span></div></div>
+        </div>
+        <div class="rev-card">
+          <p class="rev-quote">«Как репетитор — перестала вручную вести таблицу с записями. Родители сами выбирают время в расписании.»</p>
+          <div class="rev-who"><span class="avatar" style="background:var(--lang);">Е</span><div><b>Елена</b><span>репетитор по английскому</span></div></div>
+        </div>
+        <div class="rev-card">
+          <p class="rev-quote">«Сын сам открывает приложение и смотрит, когда следующая тренировка. Для него это как игра.»</p>
+          <div class="rev-who"><span class="avatar" style="background:var(--music);">Д</span><div><b>Дмитрий</b><span>папа, Казань</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOYALTY -->
+  <section id="loyalty">
+    <div class="wrap">
+      <div class="loyalty">
+        <span class="glow glow-1" style="top:-160px; right:-120px; width:320px; height:320px;"></span>
+        <span class="glow glow-2" style="bottom:-140px; left:-80px; width:280px; height:280px;"></span>
+        <div class="loyalty-grid">
+          <div>
+            <h2>Постоянные занятия — постоянные бонусы</h2>
+            <p>За каждую оплаченную запись начисляются баллы. После третьего визита к одному организатору открывается программа лояльности этой студии.</p>
+            <div class="progress-wrap">
+              <div class="progress-label"><span>Прогресс к скидке в «Дельфине»</span><span>2 из 3 визитов</span></div>
+              <div class="progress-track"><div class="progress-fill" id="progressFill" data-target="66"></div></div>
+            </div>
+          </div>
+          <div class="loy-list">
+            <div class="loy-item"><b>Баллы за визиты</b><span>списываются на следующую оплату</span></div>
+            <div class="loy-item"><b>Скидка за постоянство</b><span>от 4-го занятия подряд у одного автора</span></div>
+            <div class="loy-item"><b>Приведи друга</b><span>бонус вам и другу на первое занятие</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="wrap">
+      <div class="cta-band">
+        <h2>Готовы найти занятие на эту неделю?</h2>
+        <a href="#finder" class="btn btn-primary">Найти занятие рядом</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="logo" style="margin-bottom:10px;"><span class="dot"></span>SkillSpot</div>
+        <p style="font-size:13.5px; color:var(--sub); max-width:220px;">Кружки, секции и репетиторы рядом с домом — поиск, запись и расписание в одном месте.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Продукт</h4>
+        <a href="#categories">Каталог</a>
+        <a href="#how">Как это работает</a>
+        <a href="#app">Приложение</a>
+      </div>
+      <div class="foot-col">
+        <h4>Для организаторов</h4>
+        <a href="#audience">Разместить занятия</a>
+        <a href="#">Тарифы для бизнеса</a>
+        <a href="#">Верификация</a>
+      </div>
+      <div class="foot-col">
+        <h4>Компания</h4>
+        <a href="#">О проекте</a>
+        <a href="#">Контакты</a>
+        <a href="#">Поддержка</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 SkillSpot. Учебный проект «Digital Маркетинг», КФУ.</span>
+      <span>Казань</span>
+    </div>
+  </div>
+</footer>
+
+<script type="application/json" id="page-state">{"content":"SkillSpot — сквозной учебный проект курса «Digital Маркетинг», кафедра маркетинга КФУ, 2026 год.\n\nЗдесь можно рассказать подробнее о продукте, команде и текущей стадии разработки — нажмите «Редактировать» справа, впишите свой текст и сохраните. Изменения увидят все, у кого есть доступ к этой странице.","videoUrl":null,"videoName":null}</script>
+
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- mobile menu ---- */
+  var burger = document.getElementById('burgerBtn');
+  var panel = document.getElementById('mobilePanel');
+  burger.addEventListener('click', function(){
+    var open = panel.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  panel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ panel.classList.remove('open'); burger.setAttribute('aria-expanded','false'); });
+  });
+
+  /* ---- marquee content (built from category list so it stays in sync) ---- */
+  var cats = [
+    ["Спорт","sport"], ["Танцы","dance"], ["Творчество","art"], ["Музыка","music"],
+    ["Языки","lang"], ["Репетиторы","tutor"], ["Йога и фитнес","fitness"], ["Подготовка к школе","school"]
+  ];
+  var track = document.getElementById('marqueeTrack');
+  function chip(name, key){
+    var s = document.createElement('span');
+    s.className = 'm-chip';
+    s.innerHTML = '<span class="dot" style="background:var(--'+key+')"></span>'+name;
+    return s;
+  }
+  [0,1].forEach(function(){
+    cats.forEach(function(c){ track.appendChild(chip(c[0], c[1])); });
+  });
+
+  /* ---- interactive weekly planner ---- */
+  var days = ["ПН","ВТ","СР","ЧТ","ПТ","СБ","ВС"];
+  var preset = [
+    { key:"sport", label:"Плавание", color:"var(--sport)" },
+    { key:"lang", label:"Английский", color:"var(--lang)" },
+    { key:"art", label:"Рисование", color:"var(--art)" },
+    { key:"music", label:"Пианино", color:"var(--music)" }
+  ];
+  // initial state: two pre-filled slots (mon evening, sat morning), rest empty
+  var state = [
+    [{ label:"Плавание", color:"var(--sport)" }, null],
+    [null, null],
+    [null, null],
+    [null, null],
+    [null, null],
+    [{ label:"Рисование", color:"var(--art)" }, null],
+    [null, null]
+  ];
+  var weekEl = document.getElementById('week');
+  var countEl = document.getElementById('planCount');
+
+  function countFilled(){
+    var n = 0;
+    state.forEach(function(day){ day.forEach(function(s){ if(s) n++; }); });
+    return n;
+  }
+  function updateCount(){
+    var n = countFilled();
+    countEl.textContent = n + (n===1 ? ' занятие на неделе' : (n>=2 && n<=4 ? ' занятия на неделе' : ' занятий на неделе'));
+  }
+
+  function closeAllMenus(){
+    document.querySelectorAll('.add-menu.open').forEach(function(m){ m.classList.remove('open'); });
+  }
+
+  function renderWeek(){
+    weekEl.innerHTML = '';
+    days.forEach(function(dayName, di){
+      var dayCol = document.createElement('div');
+      dayCol.className = 'day';
+      var lbl = document.createElement('div');
+      lbl.className = 'd-label';
+      lbl.textContent = dayName;
+      dayCol.appendChild(lbl);
+
+      state[di].forEach(function(item, si){
+        if(item){
+          var slot = document.createElement('div');
+          slot.className = 'slot';
+          slot.style.background = item.color;
+          slot.textContent = item.label;
+          dayCol.appendChild(slot);
+        } else {
+          var wrapEl = document.createElement('div');
+          wrapEl.style.position = 'relative';
+          var empty = document.createElement('div');
+          empty.className = 'slot empty';
+          empty.textContent = '+';
+          empty.setAttribute('aria-label', 'Добавить занятие');
+          empty.addEventListener('click', function(e){
+            e.stopPropagation();
+            var already = wrapEl.querySelector('.add-menu');
+            var wasOpen = already && already.classList.contains('open');
+            closeAllMenus();
+            if(!wasOpen && already){ already.classList.add('open'); }
+          });
+          var menu = document.createElement('div');
+          menu.className = 'add-menu';
+          preset.forEach(function(p){
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.innerHTML = '<span class="sw" style="background:'+p.color+'"></span>'+p.label;
+            b.addEventListener('click', function(e){
+              e.stopPropagation();
+              state[di][si] = { label:p.label, color:p.color };
+              renderWeek();
+              updateCount();
+            });
+            menu.appendChild(b);
+          });
+          wrapEl.appendChild(empty);
+          wrapEl.appendChild(menu);
+          dayCol.appendChild(wrapEl);
+        }
+      });
+      weekEl.appendChild(dayCol);
+    });
+  }
+  document.addEventListener('click', closeAllMenus);
+  renderWeek();
+  updateCount();
+
+  /* ---- count-up stats ---- */
+  var counters = document.querySelectorAll('[data-count]');
+  function animateCounter(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var suffix = el.getAttribute('data-suffix') || '';
+    if(reduceMotion || target === 0){ el.textContent = target + suffix; return; }
+    var dur = 900, start = null;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min(1, (ts - start) / dur);
+      el.textContent = Math.round(p * target) + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window){
+    var statObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ animateCounter(en.target); statObs.unobserve(en.target); }
+      });
+    }, { threshold:0.5 });
+    counters.forEach(function(c){ statObs.observe(c); });
+  } else {
+    counters.forEach(animateCounter);
+  }
+
+  /* ---- provider filter ---- */
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var provCards = document.querySelectorAll('.prov-card');
+  var emptyState = document.getElementById('emptyState');
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      filterBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.getAttribute('data-filter');
+      var visible = 0;
+      provCards.forEach(function(card){
+        var show = (f === 'all') || (card.getAttribute('data-cat') === f);
+        card.classList.toggle('hidden', !show);
+        if(show) visible++;
+      });
+      emptyState.classList.toggle('show', visible === 0);
+    });
+  });
+
+  /* ---- audience tabs ---- */
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      tabBtns.forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.getAttribute('data-tab')).classList.add('active');
+    });
+  });
+
+  /* ---- reviews carousel controls ---- */
+  var revScroll = document.getElementById('revScroll');
+  document.getElementById('revPrev').addEventListener('click', function(){
+    revScroll.scrollBy({ left: -340, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+  document.getElementById('revNext').addEventListener('click', function(){
+    revScroll.scrollBy({ left: 340, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+
+  /* ---- loyalty progress bar reveal ---- */
+  var fill = document.getElementById('progressFill');
+  if('IntersectionObserver' in window){
+    var progObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          fill.style.width = fill.getAttribute('data-target') + '%';
+          progObs.unobserve(en.target);
+        }
+      });
+    }, { threshold:0.4 });
+    progObs.observe(fill);
+  } else {
+    fill.style.width = fill.getAttribute('data-target') + '%';
+  }
+
+  /* ---- editable content & video — plain client-side, no external service ----
+     Saved with localStorage, so edits persist in THIS browser on THIS device
+     across reloads. There is no server behind this file, so edits are not
+     shared with other visitors — each person editing sees only their own copy. */
+  var STORAGE_KEY = 'skillspot_page_state_v1';
+  var pageState = { content:"", videoUrl:null };
+  var stateScriptEl = document.getElementById('page-state');
+  if(stateScriptEl){
+    try{ pageState = Object.assign(pageState, JSON.parse(stateScriptEl.textContent)); }catch(e){}
+  }
+  try{
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if(saved) pageState = Object.assign(pageState, JSON.parse(saved));
+  }catch(e){ /* localStorage unavailable (private mode, etc.) — fall back to defaults */ }
+
+  function toEmbedUrl(url){
+    var yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{6,})/);
+    if(yt) return 'https://www.youtube.com/embed/' + yt[1];
+    return null;
+  }
+  function renderContentBlock(){
+    document.getElementById('contentView').textContent = pageState.content;
+  }
+  function renderVideoBlock(){
+    var v = document.getElementById('videoView');
+    if(!pageState.videoUrl){
+      v.innerHTML = '<div class="video-placeholder">Видео пока не добавлено. Нажмите «Редактировать» и вставьте ссылку на ролик.</div>';
+      return;
+    }
+    var embed = toEmbedUrl(pageState.videoUrl);
+    if(embed){
+      v.innerHTML = '<iframe width="100%" height="480" style="border:0;" src="'+embed+'" title="Видео о проекте" allowfullscreen loading="lazy"></iframe>';
+    } else {
+      v.innerHTML = '<video src="'+pageState.videoUrl+'" controls playsinline preload="metadata"></video>';
+    }
+  }
+  renderContentBlock();
+  renderVideoBlock();
+
+  // Editing is always available here — this file has no server-side permissions,
+  // it is simply your own local copy of the page.
+  document.querySelectorAll('.edit-toggle').forEach(function(b){ b.style.display = 'inline-flex'; });
+
+  document.querySelectorAll('.edit-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var t = btn.getAttribute('data-edit-target');
+      if(t === 'content'){
+        document.getElementById('contentTextarea').value = pageState.content;
+        document.getElementById('contentView').hidden = true;
+        document.getElementById('contentEdit').hidden = false;
+      } else {
+        document.getElementById('videoUrlInput').value = pageState.videoUrl || '';
+        document.getElementById('videoView').hidden = true;
+        document.getElementById('videoEdit').hidden = false;
+      }
+    });
+  });
+  document.getElementById('contentCancel').addEventListener('click', function(){
+    document.getElementById('contentEdit').hidden = true;
+    document.getElementById('contentView').hidden = false;
+  });
+  document.getElementById('videoCancel').addEventListener('click', function(){
+    document.getElementById('videoEdit').hidden = true;
+    document.getElementById('videoView').hidden = false;
+  });
+
+  function persistPage(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(pageState)); }
+    catch(e){ /* storage full or unavailable — page still works, just won't remember on reload */ }
+  }
+
+  document.getElementById('contentSave').addEventListener('click', function(){
+    pageState.content = document.getElementById('contentTextarea').value;
+    renderContentBlock();
+    document.getElementById('contentEdit').hidden = true;
+    document.getElementById('contentView').hidden = false;
+    persistPage();
+  });
+
+  document.getElementById('videoSave').addEventListener('click', function(){
+    var url = document.getElementById('videoUrlInput').value.trim();
+    pageState.videoUrl = url || null;
+    renderVideoBlock();
+    document.getElementById('videoEdit').hidden = true;
+    document.getElementById('videoView').hidden = false;
+    persistPage();
+  });
+
+  /* ---- scrollspy rail ---- */
+  var railLinks = document.querySelectorAll('[data-rail]');
+  var sections = Array.prototype.map.call(railLinks, function(a){
+    return document.querySelector(a.getAttribute('href'));
+  });
+  if('IntersectionObserver' in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var idx = sections.indexOf(en.target);
+          if(idx > -1){
+            railLinks.forEach(function(l){ l.classList.remove('active'); });
+            railLinks[idx].classList.add('active');
+          }
+        }
+      });
+    }, { rootMargin:'-45% 0px -45% 0px' });
+    sections.forEach(function(s){ if(s) spy.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
