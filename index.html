@@ -3,10 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SkillSpot — расписание, которое собирает себя само</title>
+<title>SkillSpot — кружки, секции и репетиторы рядом с домом в Казани</title>
+<meta name="description" content="SkillSpot — поиск и онлайн-запись на кружки, секции, танцы, репетиторов и детские студии в Казани. Сравнивайте цены и отзывы, записывайтесь и оплачивайте занятия онлайн, расписание само синхронизируется с календарём.">
+<meta name="keywords" content="кружки для детей, секции рядом с домом, репетиторы Казань, детские студии, запись на занятия онлайн, расписание кружков, дополнительное образование, SkillSpot">
+<meta name="author" content="SkillSpot">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://skillspot.ru/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="SkillSpot">
+<meta property="og:title" content="SkillSpot — кружки, секции и репетиторы рядом с домом">
+<meta property="og:description" content="Поиск, сравнение и онлайн-запись на кружки, секции и к репетиторам. Расписание само синхронизируется с календарём.">
+<meta property="og:url" content="https://skillspot.ru/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SkillSpot — кружки, секции и репетиторы рядом с домом">
+<meta name="twitter:description" content="Поиск, сравнение и онлайн-запись на кружки, секции и к репетиторам в одном месте.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!--
+  Яндекс.Вебмастер: подтверждение прав на сайт через meta-тег.
+  После регистрации сайта в Яндекс.Вебмастере вставьте сюда свой код подтверждения:
+  <meta name="yandex-verification" content="ВАШ_КОД_ПОДТВЕРЖДЕНИЯ" />
+-->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SkillSpot",
+  "url": "https://skillspot.ru/",
+  "description": "Онлайн-платформа для поиска и записи на кружки, секции и к репетиторам.",
+  "areaServed": "Казань",
+  "sameAs": []
+}
+</script>
 <style>
   :root{
     box-sizing:border-box;
@@ -355,6 +390,81 @@
   .upload-hint{ font-size:12.5px; color:var(--sub); margin-top:10px; min-height:1em; }
   [hidden]{ display:none !important; }
 
+  /* ---------- live-app motion layer ---------- */
+  header.site{ transition:box-shadow .25s ease; }
+  header.site.scrolled{ box-shadow:0 10px 28px rgba(42,27,61,0.10); }
+  .nav{ transition:height .25s ease; }
+  header.site.scrolled .nav{ height:60px; }
+
+  .reveal{ opacity:0; transform:translateY(20px); transition:opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  .reveal-stagger.in-view > *{ transition-delay:calc(var(--stagger-i, 0) * 70ms); }
+
+  @media (prefers-reduced-motion: no-preference){
+    @keyframes heroIn{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:translateY(0); } }
+    .hero-grid > div:first-child > *{ opacity:0; animation:heroIn .7s ease forwards; }
+    .hero-grid > div:first-child > *:nth-child(1){ animation-delay:.05s; }
+    .hero-grid > div:first-child > *:nth-child(2){ animation-delay:.15s; }
+    .hero-grid > div:first-child > *:nth-child(3){ animation-delay:.25s; }
+    .hero-grid > div:first-child > *:nth-child(4){ animation-delay:.35s; }
+    .hero-grid > div:first-child > *:nth-child(5){ animation-delay:.45s; }
+    .schedule-card{ opacity:0; animation:heroIn .7s ease forwards; animation-delay:.3s; }
+
+    @keyframes floaty{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-20px) scale(1.04); } }
+    .glow-1{ animation:floaty 9s ease-in-out infinite; }
+    .glow-2{ animation:floaty 11s ease-in-out infinite; animation-delay:-4s; }
+
+    @keyframes popIn{ from{ transform:scale(.78); opacity:.3; } to{ transform:scale(1); opacity:1; } }
+    .slot.pop{ animation:popIn .4s cubic-bezier(.2,.9,.3,1.3); }
+  }
+
+  .prov-card{ transition:opacity .3s ease, transform .3s ease, box-shadow .18s ease; }
+  .prov-card.prov-hide{ opacity:0; transform:scale(.93); }
+  .empty-state{ transition:opacity .25s ease; }
+
+  .tab-panel{ display:none; opacity:0; transform:translateY(8px); transition:opacity .3s ease, transform .3s ease; }
+  .tab-panel.active{ opacity:1; transform:translateY(0); }
+
+  .btn{ position:relative; overflow:hidden; }
+  .btn .ripple{
+    position:absolute; border-radius:50%; transform:scale(0); opacity:.5; pointer-events:none;
+    background:rgba(0,0,0,0.14); animation:rippleAnim .6s ease-out forwards;
+  }
+  .btn-primary .ripple, .btn-mustard .ripple{ background:rgba(255,255,255,0.5); }
+  @keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
+
+  .toast-wrap{
+    position:fixed; left:50%; bottom:24px; transform:translateX(-50%); z-index:70;
+    display:flex; flex-direction:column; gap:8px; align-items:center; pointer-events:none;
+    width:100%; padding:0 16px;
+  }
+  .toast{
+    background:var(--ink); color:#fff; font-size:13.5px; font-weight:600; padding:12px 20px;
+    border-radius:999px; box-shadow:var(--shadow); opacity:0; transform:translateY(14px) scale(.98);
+    transition:opacity .3s ease, transform .3s ease; max-width:360px; text-align:center;
+  }
+  .toast.show{ opacity:1; transform:translateY(0) scale(1); }
+
+  .to-top{
+    position:fixed; left:22px; bottom:22px; width:46px; height:46px; border-radius:50%;
+    background:var(--ink); color:#fff; border:none; font-size:19px; cursor:pointer;
+    opacity:0; pointer-events:none; transform:translateY(12px) scale(.9);
+    transition:opacity .25s ease, transform .25s ease, background .2s ease;
+    z-index:45; box-shadow:var(--shadow-sm);
+  }
+  .to-top.show{ opacity:1; pointer-events:auto; transform:translateY(0) scale(1); }
+  .to-top:hover{ background:var(--brand); }
+  @media (max-width:1040px){ .to-top{ left:16px; bottom:16px; } }
+
+  .rev-dots{ display:flex; gap:7px; justify-content:center; margin-top:18px; }
+  .rev-dots button{
+    width:8px; height:8px; border-radius:999px; border:none; background:var(--line);
+    cursor:pointer; padding:0; transition:width .25s ease, background .25s ease;
+  }
+  .rev-dots button.active{ width:22px; background:var(--brand); }
+
+  .finder .btn[data-loading="1"]{ pointer-events:none; opacity:.85; }
+
   /* ---------- footer ---------- */
   footer{ border-top:1px solid var(--line); padding:52px 0 32px; }
   .foot-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:32px; margin-bottom:36px; }
@@ -370,6 +480,9 @@
 <svg width="0" height="0" style="position:absolute">
   <symbol id="ic-check" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
+
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+<button class="to-top" id="toTop" aria-label="Наверх">↑</button>
 
 <header class="site">
   <div class="wrap nav">
@@ -429,15 +542,15 @@
             <option>Москва</option>
             <option>Санкт-Петербург</option>
           </select>
-          <select aria-label="Категория">
-            <option>Любая категория</option>
-            <option>Спорт</option>
-            <option>Творчество</option>
-            <option>Музыка</option>
-            <option>Языки</option>
+          <select id="heroCategorySelect" aria-label="Категория">
+            <option value="all">Любая категория</option>
+            <option value="sport">Спорт</option>
+            <option value="art">Творчество</option>
+            <option value="music">Музыка</option>
+            <option value="lang">Языки</option>
           </select>
           <input type="text" placeholder="Район или адрес">
-          <button class="btn btn-mustard">Найти занятие</button>
+          <button class="btn btn-mustard" id="heroSearchBtn" type="button">Найти занятие</button>
         </div>
         <p class="trust-line"><b>412</b> студий и репетиторов уже на карте Казани</p>
       </div>
@@ -692,6 +805,7 @@
           <div class="rev-who"><span class="avatar" style="background:var(--music);">Д</span><div><b>Дмитрий</b><span>папа, Казань</span></div></div>
         </div>
       </div>
+      <div class="rev-dots" id="revDots"></div>
     </div>
   </section>
 
@@ -783,6 +897,65 @@
     a.addEventListener('click', function(){ panel.classList.remove('open'); burger.setAttribute('aria-expanded','false'); });
   });
 
+  /* ---- toasts ---- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(msg, ms){
+    var t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = msg;
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){ t.classList.add('show'); });
+    setTimeout(function(){
+      t.classList.remove('show');
+      t.addEventListener('transitionend', function(){ t.remove(); }, { once:true });
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 500); // fallback
+    }, ms || 2200);
+  }
+
+  /* ---- ripple feedback on buttons ---- */
+  if(!reduceMotion){
+    document.addEventListener('click', function(e){
+      var btn = e.target.closest ? e.target.closest('.btn') : null;
+      if(!btn) return;
+      var rect = btn.getBoundingClientRect();
+      var size = Math.max(rect.width, rect.height);
+      var r = document.createElement('span');
+      r.className = 'ripple';
+      r.style.width = r.style.height = size + 'px';
+      r.style.left = (e.clientX - rect.left - size/2) + 'px';
+      r.style.top = (e.clientY - rect.top - size/2) + 'px';
+      btn.appendChild(r);
+      r.addEventListener('animationend', function(){ r.remove(); });
+    });
+  }
+
+  /* ---- sticky header shrink + scroll-to-top button ---- */
+  var siteHeader = document.querySelector('header.site');
+  var toTopBtn = document.getElementById('toTop');
+  function onScroll(){
+    var y = window.scrollY || window.pageYOffset;
+    siteHeader.classList.toggle('scrolled', y > 10);
+    toTopBtn.classList.toggle('show', y > 600);
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+  toTopBtn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+
+  /* ---- scroll reveal for content blocks ---- */
+  if('IntersectionObserver' in window){
+    var revealEls = document.querySelectorAll(
+      '.section-title, .section-lead, .prov-card, .rev-card, .step, .stat, .tab-panel, .loyalty, .cta-band'
+    );
+    var revealObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in-view'); revealObs.unobserve(en.target); }
+      });
+    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ el.classList.add('reveal'); revealObs.observe(el); });
+  }
+
   /* ---- marquee content (built from category list so it stays in sync) ---- */
   var cats = [
     ["Спорт","sport"], ["Танцы","dance"], ["Творчество","art"], ["Музыка","music"],
@@ -834,6 +1007,8 @@
     document.querySelectorAll('.add-menu.open').forEach(function(m){ m.classList.remove('open'); });
   }
 
+  var lastChanged = null;
+
   function renderWeek(){
     weekEl.innerHTML = '';
     days.forEach(function(dayName, di){
@@ -848,6 +1023,7 @@
         if(item){
           var slot = document.createElement('div');
           slot.className = 'slot';
+          if(lastChanged && lastChanged[0] === di && lastChanged[1] === si) slot.classList.add('pop');
           slot.style.background = item.color;
           slot.textContent = item.label;
           dayCol.appendChild(slot);
@@ -874,8 +1050,10 @@
             b.addEventListener('click', function(e){
               e.stopPropagation();
               state[di][si] = { label:p.label, color:p.color };
+              lastChanged = [di, si];
               renderWeek();
               updateCount();
+              showToast('Добавлено в расписание: ' + p.label + ', ' + days[di]);
             });
             menu.appendChild(b);
           });
@@ -917,38 +1095,108 @@
     counters.forEach(animateCounter);
   }
 
-  /* ---- provider filter ---- */
+  /* ---- provider filter (animated show/hide, shared by filter chips + hero search) ---- */
   var filterBtns = document.querySelectorAll('.filter-btn');
   var provCards = document.querySelectorAll('.prov-card');
   var emptyState = document.getElementById('emptyState');
+  var catNames = { all:'Все', sport:'Спорт', lang:'Языки', art:'Творчество', music:'Музыка', dance:'Танцы', fitness:'Йога и фитнес' };
+
+  function setCardVisible(card, show){
+    if(show){
+      card.style.display = '';
+      requestAnimationFrame(function(){ card.classList.remove('prov-hide'); });
+    } else {
+      card.classList.add('prov-hide');
+      setTimeout(function(){ if(card.classList.contains('prov-hide')) card.style.display = 'none'; }, reduceMotion ? 0 : 320);
+    }
+  }
+
+  function applyFilter(key){
+    filterBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-filter') === key); });
+    var visible = 0;
+    provCards.forEach(function(card){
+      var show = (key === 'all') || (card.getAttribute('data-cat') === key);
+      setCardVisible(card, show);
+      if(show) visible++;
+    });
+    emptyState.classList.toggle('show', visible === 0);
+    return visible;
+  }
+
   filterBtns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      filterBtns.forEach(function(b){ b.classList.remove('active'); });
-      btn.classList.add('active');
-      var f = btn.getAttribute('data-filter');
-      var visible = 0;
-      provCards.forEach(function(card){
-        var show = (f === 'all') || (card.getAttribute('data-cat') === f);
-        card.classList.toggle('hidden', !show);
-        if(show) visible++;
-      });
-      emptyState.classList.toggle('show', visible === 0);
-    });
+    btn.addEventListener('click', function(){ applyFilter(btn.getAttribute('data-filter')); });
   });
 
-  /* ---- audience tabs ---- */
+  /* ---- hero search: real filter + scroll + toast, so it behaves like live search ---- */
+  var heroSearchBtn = document.getElementById('heroSearchBtn');
+  var heroCategorySelect = document.getElementById('heroCategorySelect');
+  heroSearchBtn.addEventListener('click', function(){
+    if(heroSearchBtn.getAttribute('data-loading') === '1') return;
+    var key = heroCategorySelect.value;
+    var originalText = heroSearchBtn.textContent;
+    heroSearchBtn.setAttribute('data-loading', '1');
+    heroSearchBtn.textContent = 'Ищем…';
+    setTimeout(function(){
+      var n = applyFilter(key);
+      heroSearchBtn.textContent = originalText;
+      heroSearchBtn.removeAttribute('data-loading');
+      document.getElementById('providers').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block:'start' });
+      showToast(n > 0
+        ? 'Нашли ' + n + (n===1?' занятие':' занятий') + ' в категории «' + catNames[key] + '»'
+        : 'В категории «' + catNames[key] + '» пока пусто — загляните позже');
+    }, reduceMotion ? 0 : 650);
+  });
+
+  /* ---- audience tabs (crossfade instead of a hard cut) ---- */
   var tabBtns = document.querySelectorAll('.tab-btn');
-  tabBtns.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      tabBtns.forEach(function(b){ b.classList.remove('active'); });
-      document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
-      btn.classList.add('active');
-      document.getElementById('tab-' + btn.getAttribute('data-tab')).classList.add('active');
+  var tabPanels = document.querySelectorAll('.tab-panel');
+  function showTab(key){
+    tabBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-tab') === key); });
+    tabPanels.forEach(function(p){
+      var match = p.id === 'tab-' + key;
+      if(match){
+        p.style.display = 'block';
+        requestAnimationFrame(function(){ p.classList.add('active'); });
+      } else if(p.classList.contains('active')){
+        p.classList.remove('active');
+        setTimeout(function(){ if(!p.classList.contains('active')) p.style.display = 'none'; }, reduceMotion ? 0 : 300);
+      } else {
+        p.style.display = 'none';
+      }
     });
+  }
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){ showTab(btn.getAttribute('data-tab')); });
   });
 
-  /* ---- reviews carousel controls ---- */
+  /* ---- reviews carousel controls + dots ---- */
   var revScroll = document.getElementById('revScroll');
+  var revCards = document.querySelectorAll('.rev-card');
+  var revDots = document.getElementById('revDots');
+  revCards.forEach(function(card, i){
+    var d = document.createElement('button');
+    d.setAttribute('aria-label', 'Отзыв ' + (i+1));
+    if(i === 0) d.classList.add('active');
+    d.addEventListener('click', function(){
+      card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', inline:'start', block:'nearest' });
+    });
+    revDots.appendChild(d);
+  });
+  if('IntersectionObserver' in window){
+    var dotEls = revDots.querySelectorAll('button');
+    var revCardObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var idx = Array.prototype.indexOf.call(revCards, en.target);
+          if(idx > -1){
+            dotEls.forEach(function(d){ d.classList.remove('active'); });
+            dotEls[idx].classList.add('active');
+          }
+        }
+      });
+    }, { root:revScroll, threshold:0.6 });
+    revCards.forEach(function(c){ revCardObs.observe(c); });
+  }
   document.getElementById('revPrev').addEventListener('click', function(){
     revScroll.scrollBy({ left: -340, behavior: reduceMotion ? 'auto' : 'smooth' });
   });
@@ -1049,6 +1297,7 @@
     document.getElementById('contentEdit').hidden = true;
     document.getElementById('contentView').hidden = false;
     persistPage();
+    showToast('Текст сохранён в этом браузере');
   });
 
   document.getElementById('videoSave').addEventListener('click', function(){
@@ -1058,6 +1307,7 @@
     document.getElementById('videoEdit').hidden = true;
     document.getElementById('videoView').hidden = false;
     persistPage();
+    showToast(url ? 'Видео добавлено' : 'Ссылка на видео очищена');
   });
 
   /* ---- scrollspy rail ---- */
@@ -1081,5 +1331,23 @@
   }
 })();
 </script>
+
+<!--
+  Яндекс.Метрика: счётчик посещаемости.
+  1) Зарегистрируйте сайт на metrika.yandex.ru и получите номер счётчика.
+  2) Замените XXXXXXXX ниже на этот номер и раскомментируйте блок целиком.
+
+<script type="text/javascript">
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(XXXXXXXX, "init", {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/XXXXXXXX" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+-->
+
 </body>
 </html>
