@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Host: skillspot.ru
+Sitemap: https://skillspot.ru/sitemap.xml
