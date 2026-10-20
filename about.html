@@ -1,19 +1,1461 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>О проекте — SkillSpot</title>
 <meta name="description" content="О проекте SkillSpot: задачи, презентация и команда.">
-<link rel="icon" href="assets/mark.png">
-<link rel="stylesheet" href="css/style.css">
+<meta name="keywords" content="кружки для детей, секции рядом с домом, репетиторы Казань, детские студии, запись на занятия онлайн, расписание кружков, дополнительное образование, SkillSpot">
+<meta name="author" content="SkillSpot">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://skillspot.ru/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="SkillSpot">
+<meta property="og:title" content="SkillSpot — кружки, секции и репетиторы рядом с домом">
+<meta property="og:description" content="Поиск, сравнение и онлайн-запись на кружки, секции и к репетиторам. Расписание само синхронизируется с календарём.">
+<meta property="og:url" content="https://skillspot.ru/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SkillSpot — кружки, секции и репетиторы рядом с домом">
+<meta name="twitter:description" content="Поиск, сравнение и онлайн-запись на кружки, секции и к репетиторам в одном месте.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!--
+  Яндекс.Вебмастер: подтверждение прав на сайт через meta-тег.
+  После регистрации сайта в Яндекс.Вебмастере вставьте сюда свой код подтверждения:
+  <meta name="yandex-verification" content="ВАШ_КОД_ПОДТВЕРЖДЕНИЯ" />
+-->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "SkillSpot",
+  "url": "https://skillspot.ru/",
+  "description": "Онлайн-платформа для поиска и записи на кружки, секции и к репетиторам.",
+  "areaServed": "Казань",
+  "sameAs": []
+}
+</script>
+<style>
+  :root{
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+
+    --ink:#2A1B3D;
+    --paper:#FFFFFF;
+    --paper-2:#F6F1FA;
+    --sub:#6B6078;
+    --line:#E6DEEF;
+
+    --brand:#6B3FA0;
+    --brand-ink:#3F2461;
+    --brand-tint:#EEE4F7;
+
+    --mustard:#C9A227;
+    --mustard-ink:#6B4E0F;
+    --green:#4C8F58;
+    --green-ink:#254A2C;
+
+    --sport:#5FA36B;
+    --art:#C9A227;
+    --music:#6B3FA0;
+    --lang:#3E7A4A;
+    --tutor:#A5821F;
+    --dance:#8B5FBE;
+    --fitness:#4C8F58;
+    --school:#7A5D12;
+
+    --shadow: 0 20px 45px rgba(107,63,160,0.16);
+    --shadow-sm: 0 8px 20px rgba(107,63,160,0.12);
+  }
+  html{scroll-padding-top:76px; scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  *{box-sizing:border-box;}
+  ::selection{ background:var(--brand-tint); color:var(--brand-ink); }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#F1EEF7; --paper:#1E1730; --paper-2:#241B3A; --sub:#C7BBDD; --line:#3A2D55;
+      --brand-tint:#33254D;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#F1EEF7; --paper:#1E1730; --paper-2:#241B3A; --sub:#C7BBDD; --line:#3A2D55;
+    --brand-tint:#33254D;
+  }
+
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    font-size:16px; line-height:1.5;
+  }
+  h1,h2,h3{
+    font-family:"Big Shoulders Display","Arial Narrow",Arial,sans-serif;
+    font-weight:800; letter-spacing:0.01em; margin:0; color:var(--ink);
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  :focus-visible{ outline:2.5px solid var(--mustard); outline-offset:2px; border-radius:4px; }
+  button{ font-family:inherit; }
+
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-track{ background:var(--paper-2); }
+  ::-webkit-scrollbar-thumb{ background:var(--brand); border-radius:8px; }
+  html{ scrollbar-color:var(--brand) var(--paper-2); }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
+  section{ padding:84px 0; }
+  @media (max-width:720px){ section{ padding:56px 0; } }
+
+  /* ---------- header ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:color-mix(in srgb, var(--paper) 90%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--line);
+    padding-top:env(safe-area-inset-top,0px);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; height:72px; }
+  .logo{ display:flex; align-items:center; gap:8px; font-family:"Big Shoulders Display",sans-serif; font-weight:800; font-size:22px; }
+  .logo .dot{ width:10px; height:10px; border-radius:50%; background:var(--mustard); }
+  nav.links{ display:flex; gap:28px; font-size:14.5px; font-weight:600; }
+  nav.links a{ color:var(--sub); position:relative; }
+  nav.links a:hover{ color:var(--ink); }
+  .nav-right{ display:flex; align-items:center; gap:18px; }
+  .nav-right .login{ font-size:14.5px; font-weight:600; color:var(--sub); }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    padding:11px 20px; border-radius:10px; font-weight:700; font-size:14.5px;
+    border:1.5px solid transparent; cursor:pointer; white-space:nowrap;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  @media (prefers-reduced-motion: reduce){ .btn{ transition:none; } }
+  .btn-primary{ background:var(--ink); color:var(--paper); }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:var(--shadow-sm); }
+  .btn-mustard{ background:var(--mustard); color:#3A2B04; }
+  .btn-mustard:hover{ transform:translateY(-2px); box-shadow:0 14px 30px rgba(201,162,39,0.35); }
+  .btn-outline{ background:transparent; border-color:var(--line); color:var(--ink); }
+  .btn-outline:hover{ border-color:var(--brand); color:var(--brand); }
+  .btn-sm{ padding:8px 14px; font-size:13px; border-radius:8px; }
+  .btn:active{ transform:translateY(0); }
+
+  .burger{ display:none; background:none; border:none; padding:6px; cursor:pointer; }
+  .burger span{ display:block; width:22px; height:2px; background:var(--ink); margin:5px 0; }
+  @media (max-width:860px){
+    nav.links{ display:none; }
+    .nav-right .login{ display:none; }
+    .burger{ display:block; }
+  }
+  .mobile-panel{ display:none; flex-direction:column; gap:14px; padding:16px 24px 24px; border-top:1px solid var(--line); }
+  .mobile-panel.open{ display:flex; }
+  .mobile-panel a{ font-weight:600; color:var(--ink); }
+  .mobile-panel a.btn{ color:var(--paper); }
+
+  /* ---------- scrollspy rail ---------- */
+  .rail{
+    position:fixed; right:22px; top:50%; transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:14px; z-index:45;
+  }
+  .rail a{ width:9px; height:9px; border-radius:50%; background:var(--line); display:block; transition:transform .2s ease, background .2s ease; }
+  .rail a.active{ background:var(--brand); transform:scale(1.5); }
+  @media (max-width:1040px){ .rail{ display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; overflow:hidden; padding:88px 0 96px;
+    background:var(--ink); color:#F4F0FA;
+  }
+  .glow{ position:absolute; border-radius:50%; filter:blur(70px); opacity:.55; pointer-events:none; }
+  .glow-1{ width:420px; height:420px; background:var(--mustard); top:-140px; right:-100px; }
+  .glow-2{ width:360px; height:360px; background:var(--green); bottom:-160px; right:220px; }
+  .hero-grid{ position:relative; display:grid; grid-template-columns:1.05fr 0.95fr; gap:52px; align-items:center; z-index:2; }
+  @media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; gap:40px; } }
+  .eyebrow-free{ font-size:14.5px; color:#D9C9F0; font-weight:700; margin-bottom:14px; }
+  h1.hero-title{ font-size:54px; line-height:1.03; margin-bottom:20px; color:#fff; }
+  @media (max-width:520px){ h1.hero-title{ font-size:36px; } }
+  .hero p.lead{ font-size:17px; color:#CFC2E6; max-width:480px; margin-bottom:28px; }
+
+  .finder{
+    display:flex; gap:10px; flex-wrap:wrap; background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.16); border-radius:14px; padding:10px;
+  }
+  .finder select, .finder input{
+    border:1px solid rgba(255,255,255,0.18); background:rgba(255,255,255,0.06); color:#fff;
+    border-radius:9px; padding:11px 12px; font-size:14px; font-family:inherit;
+    flex:1; min-width:130px;
+  }
+  .finder select option{ color:#111; }
+  .finder input::placeholder{ color:#C7BBDD; }
+  .finder .btn{ flex:0 0 auto; }
+  @media (max-width:520px){ .finder{ flex-direction:column; } .finder select, .finder input{ min-width:100%; } }
+
+  .trust-line{ margin-top:16px; font-size:13.5px; color:#B8A9D4; }
+  .trust-line b{ color:#fff; }
+
+  /* interactive planner card */
+  .schedule-card{
+    background:var(--paper); border-radius:20px; box-shadow:var(--shadow); padding:20px; position:relative; color:var(--ink);
+  }
+  .schedule-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; }
+  .schedule-head .cal-title{ font-family:"Big Shoulders Display",sans-serif; font-weight:800; font-size:19px; }
+  .schedule-head .cal-sub{ font-size:12px; color:var(--sub); }
+  .week{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  .day{ display:flex; flex-direction:column; gap:6px; }
+  .day .d-label{ font-size:11px; text-align:center; color:var(--sub); font-weight:700; }
+  .slot{ border-radius:8px; padding:6px 5px; font-size:9.5px; line-height:1.25; color:#fff; font-weight:600; min-height:38px; display:flex; align-items:center; justify-content:center; text-align:center; }
+  .slot.empty{ background:var(--paper-2); border:1px dashed var(--line); min-height:38px; color:var(--sub); cursor:pointer; font-size:16px; font-weight:400; position:relative; }
+  .slot.empty:hover{ border-color:var(--brand); color:var(--brand); }
+  .add-menu{
+    position:absolute; z-index:10; background:var(--paper); border:1px solid var(--line); border-radius:10px;
+    box-shadow:var(--shadow); padding:6px; display:none; flex-direction:column; gap:3px; min-width:120px;
+  }
+  .add-menu.open{ display:flex; }
+  .add-menu button{
+    border:none; background:none; text-align:left; font-size:11px; padding:6px 8px; border-radius:6px; cursor:pointer;
+    display:flex; align-items:center; gap:6px; color:var(--ink);
+  }
+  .add-menu button:hover{ background:var(--paper-2); }
+  .add-menu .sw{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
+  .legend-row{ display:flex; gap:14px; flex-wrap:wrap; margin-top:16px; font-size:11.5px; color:var(--sub); }
+  .legend-row .lg{ display:flex; align-items:center; gap:6px; }
+  .legend-row .sq{ width:9px; height:9px; border-radius:2px; }
+  .plan-count{
+    position:absolute; right:16px; bottom:-16px; background:var(--brand); color:#fff;
+    font-size:11.5px; font-weight:700; padding:8px 14px; border-radius:10px; box-shadow:var(--shadow-sm);
+  }
+
+  /* ---------- marquee ---------- */
+  .marquee-wrap{ overflow:hidden; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--paper-2); padding:16px 0; }
+  .marquee{ display:flex; gap:14px; width:max-content; animation:scroll-left 32s linear infinite; }
+  @media (prefers-reduced-motion: reduce){ .marquee{ animation:none; flex-wrap:wrap; } }
+  .marquee-wrap:hover .marquee{ animation-play-state:paused; }
+  @keyframes scroll-left{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  .m-chip{ display:flex; align-items:center; gap:8px; padding:9px 18px; border-radius:999px; background:var(--paper); border:1px solid var(--line); font-weight:700; font-size:14px; white-space:nowrap; }
+  .m-chip .dot{ width:8px; height:8px; border-radius:50%; }
+
+  /* ---------- stats ---------- */
+  .stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); }
+  @media (max-width:760px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
+  .stat{ padding:0 24px; border-left:1px solid var(--line); }
+  .stat:first-child{ border-left:none; padding-left:0; }
+  @media (max-width:760px){ .stat:nth-child(2n+1){ border-left:none; padding-left:0; } }
+  .stat b{ display:block; font-family:"Big Shoulders Display",sans-serif; font-size:44px; font-weight:800; color:var(--brand); }
+  .stat span{ font-size:13.5px; color:var(--sub); }
+
+  /* ---------- categories heading ---------- */
+  h2.section-title{ font-size:36px; margin-bottom:10px; }
+  p.section-lead{ color:var(--sub); font-size:15.5px; max-width:560px; margin-bottom:32px; }
+
+  /* ---------- journey / how it works ---------- */
+  .journey{ position:relative; }
+  .journey-line{ position:absolute; left:0; right:0; top:19px; height:2px; background:var(--line); }
+  @media (max-width:760px){ .journey-line{ display:none; } }
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; position:relative; }
+  @media (max-width:900px){ .steps{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:520px){ .steps{ grid-template-columns:1fr; } }
+  .step .num{
+    width:38px; height:38px; border-radius:50%; background:var(--paper); border:2px solid var(--brand);
+    color:var(--brand); font-family:"Big Shoulders Display",sans-serif; font-size:17px; font-weight:800;
+    display:flex; align-items:center; justify-content:center; margin-bottom:14px; position:relative; z-index:2;
+  }
+  .step h3{ font-size:18px; font-weight:700; margin:0 0 6px; font-family:"Inter",sans-serif; }
+  .step p{ font-size:14px; color:var(--sub); margin:0; }
+
+  /* ---------- providers ---------- */
+  .filter-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px; }
+  .filter-btn{
+    border:1.5px solid var(--line); background:var(--paper); color:var(--ink); border-radius:999px;
+    padding:9px 16px; font-size:13.5px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:7px;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .filter-btn .dot{ width:8px; height:8px; border-radius:50%; }
+  .filter-btn.active{ border-color:var(--ink); background:var(--ink); color:#fff; }
+  .filter-btn.active .dot{ box-shadow:0 0 0 2px rgba(255,255,255,0.5); }
+
+  .prov-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; grid-auto-flow:dense; }
+  @media (max-width:900px){ .prov-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .prov-grid{ grid-template-columns:1fr; } }
+  .prov-card{
+    border:1px solid var(--line); border-radius:16px; padding:20px; background:var(--paper);
+    display:flex; flex-direction:column; gap:10px; transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .prov-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-sm); }
+  .prov-card.big{ grid-row:span 2; justify-content:space-between; background:var(--brand-tint); border-color:transparent; }
+  .prov-card.hidden{ display:none; }
+  .prov-top{ display:flex; align-items:center; gap:8px; }
+  .prov-top .dot{ width:9px; height:9px; border-radius:50%; }
+  .prov-top span{ font-size:12.5px; color:var(--sub); font-weight:600; }
+  .prov-card h3{ font-family:"Inter",sans-serif; font-size:18px; font-weight:700; }
+  .prov-card.big h3{ font-size:24px; font-family:"Big Shoulders Display",sans-serif; }
+  .prov-card p{ font-size:13.5px; color:var(--sub); margin:0; }
+  .prov-meta{ display:flex; justify-content:space-between; align-items:center; font-size:13.5px; margin-top:auto; padding-top:8px; }
+  .prov-meta b{ font-size:15px; }
+  .rating{ color:var(--mustard-ink); font-weight:700; }
+  .empty-state{ display:none; text-align:center; padding:40px 0; color:var(--sub); font-size:14.5px; }
+  .empty-state.show{ display:block; }
+
+  /* ---------- audience tabs ---------- */
+  .tabs{ display:flex; gap:10px; margin-bottom:24px; }
+  .tab-btn{
+    border:1.5px solid var(--line); background:var(--paper); color:var(--sub); font-weight:700; font-size:14.5px;
+    border-radius:999px; padding:10px 20px; cursor:pointer;
+  }
+  .tab-btn.active{ background:var(--ink); color:#fff; border-color:var(--ink); }
+  .tab-panel{ display:none; border:1px solid var(--line); border-radius:18px; padding:36px; background:var(--paper-2); }
+  .tab-panel.active{ display:block; }
+  .tab-panel h3{ font-family:"Big Shoulders Display",sans-serif; font-size:26px; margin-bottom:16px; }
+  .tab-panel ul{ list-style:none; margin:0 0 22px; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:12px 24px; }
+  @media (max-width:600px){ .tab-panel ul{ grid-template-columns:1fr; } }
+  .tab-panel li{ font-size:14.5px; color:var(--ink); display:flex; gap:10px; align-items:flex-start; }
+  .tab-panel li svg{ flex:0 0 auto; margin-top:3px; color:var(--brand); }
+
+  /* ---------- app ---------- */
+  .app-grid{ display:grid; grid-template-columns:1fr 0.9fr; gap:48px; align-items:center; }
+  @media (max-width:900px){ .app-grid{ grid-template-columns:1fr; } }
+  .app-badges{ display:flex; gap:10px; margin-top:22px; flex-wrap:wrap; }
+  .app-badge{ border:1.5px solid var(--line); border-radius:10px; padding:10px 16px; font-size:13.5px; font-weight:700; }
+  .phone{ background:var(--ink); border-radius:32px; padding:14px; max-width:280px; margin:0 auto; box-shadow:var(--shadow); }
+  .phone-screen{ background:var(--paper); border-radius:22px; padding:16px; min-height:420px; }
+  .phone-app-title{ font-family:"Big Shoulders Display",sans-serif; font-weight:800; font-size:17px; margin-bottom:12px; }
+  .phone-item{ display:flex; gap:10px; align-items:center; border:1px solid var(--line); border-radius:10px; padding:9px 10px; margin-bottom:8px; }
+  .phone-item .sq{ width:8px; height:8px; border-radius:50%; flex:0 0 auto; }
+  .phone-item div span{ display:block; font-size:11px; color:var(--sub); }
+  .phone-item div b{ font-size:12.5px; }
+
+  /* ---------- reviews carousel ---------- */
+  .rev-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px; gap:16px; flex-wrap:wrap; }
+  .rev-nav{ display:flex; gap:8px; }
+  .rev-nav button{ width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line); background:var(--paper); cursor:pointer; font-size:16px; }
+  .rev-nav button:hover{ border-color:var(--brand); color:var(--brand); }
+  .rev-scroll{ display:flex; gap:18px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:6px; scrollbar-width:none; }
+  .rev-scroll::-webkit-scrollbar{ display:none; }
+  .rev-card{ border:1px solid var(--line); border-radius:16px; padding:22px; background:var(--paper); scroll-snap-align:start; flex:0 0 320px; }
+  .rev-quote{ font-size:15px; margin-bottom:16px; }
+  .rev-who{ display:flex; align-items:center; gap:10px; }
+  .avatar{ width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:13px; flex:0 0 auto; }
+  .rev-who div b{ font-size:13.5px; display:block; }
+  .rev-who div span{ font-size:12px; color:var(--sub); }
+
+  /* ---------- loyalty ---------- */
+  .loyalty{ background:var(--ink); color:#F4F0FA; border-radius:24px; padding:48px; position:relative; overflow:hidden; }
+  .loyalty-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:32px; align-items:center; position:relative; z-index:2; }
+  @media (max-width:800px){ .loyalty-grid{ grid-template-columns:1fr; } }
+  .loyalty h2{ color:#fff; font-size:30px; margin-bottom:12px; }
+  .loyalty p{ color:#CFC2E6; font-size:15px; max-width:440px; }
+  .progress-wrap{ margin-top:22px; }
+  .progress-label{ display:flex; justify-content:space-between; font-size:12.5px; color:#CFC2E6; margin-bottom:8px; }
+  .progress-track{ height:10px; border-radius:999px; background:rgba(255,255,255,0.12); overflow:hidden; }
+  .progress-fill{ height:100%; width:0%; border-radius:999px; background:linear-gradient(90deg,var(--mustard),var(--green)); transition:width 1.1s cubic-bezier(.2,.8,.2,1); }
+  @media (prefers-reduced-motion: reduce){ .progress-fill{ transition:none; } }
+  .loy-list{ display:flex; flex-direction:column; gap:14px; }
+  .loy-item{ display:flex; gap:12px; align-items:flex-start; background:rgba(255,255,255,0.07); border-radius:12px; padding:14px 16px; }
+  .loy-item b{ display:block; font-size:14.5px; color:#fff; }
+  .loy-item span{ font-size:13px; color:#CFC2E6; }
+
+  /* ---------- cta band ---------- */
+  .cta-band{
+    border-radius:24px; padding:52px; background:var(--mustard); color:#3A2B04;
+    display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+  }
+  .cta-band h2{ font-size:32px; max-width:520px; color:#3A2B04; }
+  .cta-band .btn-primary{ background:#3A2B04; }
+
+  /* ---------- editable content & video blocks ---------- */
+  .edit-head{ display:flex; justify-content:space-between; align-items:flex-end; gap:16px; margin-bottom:20px; flex-wrap:wrap; }
+  .edit-toggle{ display:none; }
+  .content-view{ font-size:15.5px; color:var(--ink); line-height:1.75; max-width:720px; white-space:pre-wrap; }
+  .content-edit textarea{
+    width:100%; min-height:170px; border:1px solid var(--line); border-radius:12px; padding:14px;
+    font-family:inherit; font-size:14.5px; resize:vertical; background:var(--paper); color:var(--ink);
+  }
+  .edit-actions{ display:flex; gap:10px; margin-top:12px; }
+  .video-view{
+    border:1px solid var(--line); border-radius:18px; overflow:hidden; background:var(--paper-2);
+    min-height:280px; display:flex; align-items:center; justify-content:center;
+  }
+  .video-view video{ width:100%; max-height:520px; display:block; background:#000; }
+  .video-placeholder{ color:var(--sub); font-size:14.5px; padding:70px 20px; text-align:center; max-width:340px; }
+  .video-edit{ border:1px dashed var(--line); border-radius:16px; padding:22px; background:var(--paper-2); }
+  .video-edit input[type="text"]{
+    width:100%; border:1px solid var(--line); border-radius:10px; padding:11px 14px;
+    font-size:14px; font-family:inherit; background:var(--paper); color:var(--ink);
+  }
+  .upload-hint{ font-size:12.5px; color:var(--sub); margin-top:10px; min-height:1em; }
+  [hidden]{ display:none !important; }
+
+  /* ---------- live-app motion layer ---------- */
+  header.site{ transition:box-shadow .25s ease; }
+  header.site.scrolled{ box-shadow:0 10px 28px rgba(42,27,61,0.10); }
+  .nav{ transition:height .25s ease; }
+  header.site.scrolled .nav{ height:60px; }
+
+  .reveal{ opacity:0; transform:translateY(20px); transition:opacity .65s cubic-bezier(.2,.8,.2,1), transform .65s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  .reveal-stagger.in-view > *{ transition-delay:calc(var(--stagger-i, 0) * 70ms); }
+
+  @media (prefers-reduced-motion: no-preference){
+    @keyframes heroIn{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:translateY(0); } }
+    .hero-grid > div:first-child > *{ opacity:0; animation:heroIn .7s ease forwards; }
+    .hero-grid > div:first-child > *:nth-child(1){ animation-delay:.05s; }
+    .hero-grid > div:first-child > *:nth-child(2){ animation-delay:.15s; }
+    .hero-grid > div:first-child > *:nth-child(3){ animation-delay:.25s; }
+    .hero-grid > div:first-child > *:nth-child(4){ animation-delay:.35s; }
+    .hero-grid > div:first-child > *:nth-child(5){ animation-delay:.45s; }
+    .schedule-card{ opacity:0; animation:heroIn .7s ease forwards; animation-delay:.3s; }
+
+    @keyframes floaty{ 0%,100%{ transform:translateY(0) scale(1); } 50%{ transform:translateY(-20px) scale(1.04); } }
+    .glow-1{ animation:floaty 9s ease-in-out infinite; }
+    .glow-2{ animation:floaty 11s ease-in-out infinite; animation-delay:-4s; }
+
+    @keyframes popIn{ from{ transform:scale(.78); opacity:.3; } to{ transform:scale(1); opacity:1; } }
+    .slot.pop{ animation:popIn .4s cubic-bezier(.2,.9,.3,1.3); }
+  }
+
+  .prov-card{ transition:opacity .3s ease, transform .3s ease, box-shadow .18s ease; }
+  .prov-card.prov-hide{ opacity:0; transform:scale(.93); }
+  .empty-state{ transition:opacity .25s ease; }
+
+  .tab-panel{ display:none; opacity:0; transform:translateY(8px); transition:opacity .3s ease, transform .3s ease; }
+  .tab-panel.active{ opacity:1; transform:translateY(0); }
+
+  .btn{ position:relative; overflow:hidden; }
+  .btn .ripple{
+    position:absolute; border-radius:50%; transform:scale(0); opacity:.5; pointer-events:none;
+    background:rgba(0,0,0,0.14); animation:rippleAnim .6s ease-out forwards;
+  }
+  .btn-primary .ripple, .btn-mustard .ripple{ background:rgba(255,255,255,0.5); }
+  @keyframes rippleAnim{ to{ transform:scale(2.6); opacity:0; } }
+
+  .toast-wrap{
+    position:fixed; left:50%; bottom:24px; transform:translateX(-50%); z-index:70;
+    display:flex; flex-direction:column; gap:8px; align-items:center; pointer-events:none;
+    width:100%; padding:0 16px;
+  }
+  .toast{
+    background:var(--ink); color:#fff; font-size:13.5px; font-weight:600; padding:12px 20px;
+    border-radius:999px; box-shadow:var(--shadow); opacity:0; transform:translateY(14px) scale(.98);
+    transition:opacity .3s ease, transform .3s ease; max-width:360px; text-align:center;
+  }
+  .toast.show{ opacity:1; transform:translateY(0) scale(1); }
+
+  .to-top{
+    position:fixed; left:22px; bottom:22px; width:46px; height:46px; border-radius:50%;
+    background:var(--ink); color:#fff; border:none; font-size:19px; cursor:pointer;
+    opacity:0; pointer-events:none; transform:translateY(12px) scale(.9);
+    transition:opacity .25s ease, transform .25s ease, background .2s ease;
+    z-index:45; box-shadow:var(--shadow-sm);
+  }
+  .to-top.show{ opacity:1; pointer-events:auto; transform:translateY(0) scale(1); }
+  .to-top:hover{ background:var(--brand); }
+  @media (max-width:1040px){ .to-top{ left:16px; bottom:16px; } }
+
+  .rev-dots{ display:flex; gap:7px; justify-content:center; margin-top:18px; }
+  .rev-dots button{
+    width:8px; height:8px; border-radius:999px; border:none; background:var(--line);
+    cursor:pointer; padding:0; transition:width .25s ease, background .25s ease;
+  }
+  .rev-dots button.active{ width:22px; background:var(--brand); }
+
+  .finder .btn[data-loading="1"]{ pointer-events:none; opacity:.85; }
+  .login{ background:none; border:none; font-size:14.5px; font-weight:600; color:var(--sub); cursor:pointer; font-family:inherit; padding:0; }
+  .login:hover{ color:var(--ink); }
+
+  /* ---------- generic overlay (login / contact / article lightbox) ---------- */
+  .overlay{
+    position:fixed; inset:0; z-index:90; background:rgba(20,14,30,0.55);
+    display:none; align-items:flex-start; justify-content:center;
+    padding:48px 16px; overflow-y:auto;
+    opacity:0; transition:opacity .22s ease;
+  }
+  .overlay.open{ display:flex; }
+  .overlay.show{ opacity:1; }
+  .overlay-box{
+    background:var(--paper); border-radius:18px; max-width:640px; width:100%;
+    padding:36px; position:relative; box-shadow:var(--shadow);
+    transform:translateY(16px) scale(.98); transition:transform .25s cubic-bezier(.2,.8,.2,1);
+  }
+  .overlay.show .overlay-box{ transform:translateY(0) scale(1); }
+  @media (prefers-reduced-motion: reduce){ .overlay, .overlay-box{ transition:none; } }
+  .overlay-box.wide{ max-width:760px; }
+  .overlay-close{
+    position:absolute; right:16px; top:16px; width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--line); background:var(--paper); font-size:19px; line-height:1; cursor:pointer; color:var(--sub);
+  }
+  .overlay-close:hover{ color:var(--ink); border-color:var(--brand); }
+  .overlay-box h3{ font-size:24px; margin-bottom:6px; padding-right:30px; }
+  .overlay-box .ov-sub{ font-size:13.5px; color:var(--sub); margin-bottom:22px; }
+  .ov-field{ margin-bottom:14px; }
+  .ov-field label{ display:block; font-size:12.5px; font-weight:700; color:var(--sub); margin-bottom:6px; }
+  .ov-field input, .ov-field textarea{
+    width:100%; border:1px solid var(--line); border-radius:10px; padding:11px 13px;
+    font-size:14.5px; font-family:inherit; background:var(--paper-2); color:var(--ink);
+  }
+  .ov-field textarea{ min-height:100px; resize:vertical; }
+  .ov-note{ font-size:12.5px; color:var(--sub); margin-top:14px; }
+
+  /* ---------- blog ---------- */
+  .blog-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:40px; }
+  @media (max-width:900px){ .blog-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .blog-grid{ grid-template-columns:1fr; } }
+  .blog-card{
+    border:1px solid var(--line); border-radius:16px; overflow:hidden; background:var(--paper);
+    display:flex; flex-direction:column; transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .blog-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-sm); }
+  .blog-photo{
+    aspect-ratio:2/1; position:relative; display:flex; align-items:flex-end; overflow:hidden;
+  }
+  .blog-photo .ph-icon{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:.9; }
+  .blog-photo .ph-icon svg{ width:40px; height:40px; }
+  .blog-photo .ph-tag{
+    position:relative; z-index:2; margin:10px; font-size:10.5px; font-weight:700;
+    background:rgba(30,16,52,0.72); color:#fff; padding:4px 9px; border-radius:999px;
+  }
+  .blog-body{ padding:18px 18px 20px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .blog-body h3{ font-family:"Inter",sans-serif; font-size:16.5px; font-weight:700; line-height:1.3; }
+  .blog-body p{ font-size:13.5px; color:var(--sub); margin:0; line-height:1.55; }
+  .blog-photo-caption{ font-size:10.5px; color:var(--sub); padding:8px 18px 0; font-style:italic; }
+
+  .blog-feature{
+    display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--line); border-radius:18px;
+    overflow:hidden; background:var(--paper);
+  }
+  @media (max-width:800px){ .blog-feature{ grid-template-columns:1fr; } }
+  .blog-feature .blog-photo{ aspect-ratio:auto; height:100%; min-height:220px; }
+  .blog-feature-body{ padding:32px; display:flex; flex-direction:column; justify-content:center; gap:12px; }
+  .blog-feature-body .ph-tag-inline{
+    font-size:11px; font-weight:700; color:var(--brand-ink); background:var(--brand-tint);
+    padding:5px 11px; border-radius:999px; width:fit-content;
+  }
+  .blog-feature-body h3{ font-size:24px; font-family:"Big Shoulders Display",sans-serif; }
+  .blog-feature-body p{ font-size:14.5px; color:var(--sub); margin:0; }
+
+  .blog-video-card{
+    border:1px solid var(--line); border-radius:18px; padding:28px; background:var(--paper-2); margin-bottom:40px;
+  }
+  .blog-video-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; margin-bottom:16px; }
+  .blog-video-head h3{ font-size:20px; font-family:"Big Shoulders Display",sans-serif; margin-bottom:4px; }
+  .blog-video-head p{ font-size:13.5px; color:var(--sub); margin:0; max-width:460px; }
+
+
+  .reels{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:18px; }
+  @media (max-width:1000px){ .reels{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:640px){ .reels{ grid-template-columns:repeat(2,1fr); gap:10px; } }
+  .reel{ position:relative; display:block; width:100%; padding:0; border:0; cursor:pointer; border-radius:16px; overflow:hidden; aspect-ratio:9/16; background:#1b1230 center/cover no-repeat; text-align:left; color:#fff; box-shadow:var(--shadow-sm); transition:transform .25s ease, box-shadow .25s ease; }
+  .reel::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,10,40,0) 45%,rgba(20,10,40,.85) 100%); }
+  .reel:hover, .reel:focus-visible{ transform:translateY(-5px) scale(1.02); box-shadow:0 18px 40px rgba(60,30,110,.28); }
+  .reel-play{ position:absolute; z-index:2; top:50%; left:50%; width:54px; height:54px; margin:-27px 0 0 -27px; border-radius:50%; background:rgba(255,255,255,.92); color:var(--brand); display:grid; place-items:center; transition:transform .25s ease; }
+  .reel:hover .reel-play{ transform:scale(1.12); }
+  .reel-cap{ position:absolute; z-index:2; left:12px; right:12px; bottom:12px; }
+  .reel-cap b{ display:block; font-size:14.5px; line-height:1.25; }
+  .reel-cap span{ font-size:12px; opacity:.85; }
+  #sectionsVideoView:empty{ display:none; }
+  .ov-video{ display:block; margin:0 auto; width:100%; max-width:380px; max-height:72vh; border-radius:14px; background:#000; }
+
+  .deck{ border:1px solid var(--line); border-radius:20px; background:var(--paper-2); padding:20px; }
+  .deck-stage{ position:relative; border-radius:14px; overflow:hidden; background:#1b1230; aspect-ratio:16/9; box-shadow:var(--shadow-sm); }
+  .deck-stage img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; opacity:0; transition:opacity .45s ease; }
+  .deck-stage img.on{ opacity:1; }
+  .deck-nav{ position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:50%; border:0; background:rgba(255,255,255,.9); color:var(--brand); font-size:22px; cursor:pointer; z-index:2; transition:transform .2s; }
+  .deck-nav:hover{ transform:translateY(-50%) scale(1.1); }
+  .deck-nav.prev{ left:12px; } .deck-nav.next{ right:12px; }
+  .deck-bar{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-top:16px; }
+  .deck-thumbs{ display:flex; gap:8px; flex-wrap:wrap; }
+  .deck-thumbs button{ width:64px; height:36px; padding:0; border:2px solid transparent; border-radius:6px; overflow:hidden; cursor:pointer; opacity:.6; background:none; transition:opacity .2s, border-color .2s; }
+  .deck-thumbs button img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .deck-thumbs button.on{ opacity:1; border-color:var(--brand); }
+  .deck-actions{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .deck-count{ font-size:13px; color:var(--sub); font-weight:600; }
+
+  .blog-card[data-post]{ cursor:pointer; }
+  .blog-card[data-post]:focus-visible{ outline:3px solid var(--mustard); outline-offset:2px; }
+  .blog-more{ margin-top:auto; padding-top:6px; font-size:13px; font-weight:700; color:var(--brand); transition:transform .2s; display:inline-block; }
+  .blog-card:hover .blog-more{ transform:translateX(4px); }
+  .post-cover{ width:100%; height:220px; border-radius:14px; margin:0 0 18px; background-size:cover; background-position:center; }
+  .post-tag{ display:inline-block; font-size:11.5px; font-weight:700; color:var(--brand); background:var(--paper-2); padding:4px 10px; border-radius:999px; margin-bottom:10px; }
+  .post-cta{ margin-top:18px; }
+  .article-body{ font-size:15.5px; line-height:1.75; color:var(--ink); }
+  .article-body h2{ font-size:20px; margin:26px 0 10px; font-family:"Inter",sans-serif; font-weight:700; }
+  .article-body p{ margin:0 0 14px; }
+  .article-body ol, .article-body ul{ margin:0 0 14px; padding-left:22px; }
+  .article-body li{ margin-bottom:6px; }
+  .article-meta{ font-size:12.5px; color:var(--sub); margin-bottom:18px; }
+  .article-photo{ border-radius:12px; margin-bottom:20px; }
+
+  /* schedule card subtle pointer tilt */
+  .schedule-card{ transform-style:preserve-3d; will-change:transform; transition:transform .12s ease-out; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--line); padding:52px 0 32px; }
+  .foot-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr 1fr; gap:32px; margin-bottom:36px; }
+  @media (max-width:760px){ .foot-grid{ grid-template-columns:1fr 1fr; } }
+  .foot-col h4{ font-size:13.5px; margin-bottom:14px; color:var(--sub); font-weight:700; }
+  .foot-col a{ display:block; font-size:14px; margin-bottom:10px; color:var(--ink); }
+  .foot-col a:hover{ color:var(--brand); }
+  .foot-link-btn{
+    display:block; width:100%; text-align:left; font-size:14px; margin-bottom:10px; color:var(--ink);
+    background:none; border:none; padding:0; cursor:pointer; font-family:inherit;
+  }
+  .foot-link-btn:hover{ color:var(--brand); }
+  .foot-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--sub); border-top:1px solid var(--line); padding-top:20px; }
+
+  nav.links a.on{ color:var(--ink); font-weight:700; }
+  nav.links a.on:after{ content:""; position:absolute; left:0; right:0; bottom:-6px; height:3px; border-radius:3px; background:var(--mustard); }
+  nav.links{ gap:14px !important; } nav.links a{ white-space:nowrap; font-size:14px; }
+  @media (max-width:1180px){ nav.links{ display:none; } .burger{ display:block; } }
+  main > section:first-child:not(.hero){ padding-top:64px; }
+  .inline-form{ max-width:560px; }
+</style>
 </head>
-<body data-page="about">
-<div id="site-header"></div>
-<main id="main"></main>
-<div id="site-footer"></div>
-<script src="js/data.js"></script>
-<script src="js/pages.js"></script>
-<script src="js/layout.js"></script>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <symbol id="ic-check" viewBox="0 0 20 20"><path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="14" r="3.4" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="ic-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor"/></symbol>
+</svg>
+
+<div class="toast-wrap" id="toastWrap" aria-live="polite"></div>
+<button class="to-top" id="toTop" aria-label="Наверх">↑</button>
+
+<header class="site">
+  <div class="wrap nav">
+    <a href="index.html" class="logo"><span class="dot"></span>SkillSpot</a>
+    <nav class="links">
+      <a href="catalog.html">Каталог</a>
+      <a href="index.html#how">Как это работает</a>
+      <a href="organizers.html">Организаторам</a>
+      <a href="blog.html">Блог</a>
+      <a href="app.html">Приложение</a>
+      <a href="videos.html">Видео</a>
+      <a href="about.html" class="on">О проекте</a>
+      <a href="contacts.html">Контакты</a>
+    </nav>
+    <div class="nav-right">
+      <button type="button" class="login" id="loginOpenBtn">Войти</button>
+      <a href="catalog.html" class="btn btn-primary">Найти занятие</a>
+      <button class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="catalog.html">Каталог</a>
+    <a href="index.html#how">Как это работает</a>
+    <a href="organizers.html">Организаторам</a>
+    <a href="blog.html">Блог</a>
+    <a href="app.html">Приложение</a>
+    <a href="videos.html">Видео</a>
+    <a href="about.html">О проекте</a>
+    <a href="contacts.html">Контакты</a>
+    <button type="button" class="login" id="loginOpenBtnMobile" style="text-align:left; background:none; border:none; cursor:pointer; padding:0;">Войти</button>
+    <a href="catalog.html" class="btn btn-primary btn-sm" style="width:fit-content;">Найти занятие</a>
+  </div>
+</header>
+<!-- generic overlay used for login, contact/support, and the full blog article -->
+<div class="overlay" id="overlay">
+  <div class="overlay-box" id="overlayBox" role="dialog" aria-modal="true" aria-labelledby="overlayTitle">
+    <button type="button" class="overlay-close" id="overlayClose" aria-label="Закрыть">×</button>
+    <div id="overlayContent"></div>
+  </div>
+</div>
+
+<main id="top">
+  <section id="content-block">
+    <div class="wrap">
+      <div class="edit-head">
+        <h2 class="section-title" style="margin-bottom:0;">О проекте</h2>
+        <button class="btn btn-outline btn-sm edit-toggle" data-edit-target="content">Редактировать</button>
+      </div>
+      <div id="contentView" class="content-view"></div>
+      <div id="contentEdit" class="content-edit" hidden>
+        <textarea id="contentTextarea" aria-label="Текст раздела «О проекте»"></textarea>
+        <div class="edit-actions">
+          <button class="btn btn-primary btn-sm" id="contentSave">Сохранить</button>
+          <button class="btn btn-outline btn-sm" id="contentCancel">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="presentation">
+    <div class="wrap">
+      <h2 class="section-title">Презентация проекта</h2>
+      <p class="section-lead">Короткий обзор SkillSpot: проблема, решение, путь клиента и сайт. Листайте здесь или скачайте файл.</p>
+      <div class="deck">
+        <div class="deck-stage" id="deckStage">
+          <img src="presentation/p-1.jpg" alt="Слайд 1" class="on"><img src="presentation/p-2.jpg" alt="Слайд 2" loading="lazy"><img src="presentation/p-3.jpg" alt="Слайд 3" loading="lazy"><img src="presentation/p-4.jpg" alt="Слайд 4" loading="lazy"><img src="presentation/p-5.jpg" alt="Слайд 5" loading="lazy"><img src="presentation/p-6.jpg" alt="Слайд 6" loading="lazy"><img src="presentation/p-7.jpg" alt="Слайд 7" loading="lazy">
+          <button type="button" class="deck-nav prev" id="deckPrev" aria-label="Предыдущий слайд">‹</button>
+          <button type="button" class="deck-nav next" id="deckNext" aria-label="Следующий слайд">›</button>
+        </div>
+        <div class="deck-bar">
+          <div class="deck-thumbs" id="deckThumbs"><button type="button" data-i="0" aria-label="Слайд 1" class="on"><img src="presentation/p-1.jpg" alt=""></button><button type="button" data-i="1" aria-label="Слайд 2"><img src="presentation/p-2.jpg" alt=""></button><button type="button" data-i="2" aria-label="Слайд 3"><img src="presentation/p-3.jpg" alt=""></button><button type="button" data-i="3" aria-label="Слайд 4"><img src="presentation/p-4.jpg" alt=""></button><button type="button" data-i="4" aria-label="Слайд 5"><img src="presentation/p-5.jpg" alt=""></button><button type="button" data-i="5" aria-label="Слайд 6"><img src="presentation/p-6.jpg" alt=""></button><button type="button" data-i="6" aria-label="Слайд 7"><img src="presentation/p-7.jpg" alt=""></button></div>
+          <div class="deck-actions">
+            <span class="deck-count" id="deckCount">1 / 7</span>
+            <a class="btn btn-outline btn-sm" href="presentation/SkillSpot_presentation.pdf" target="_blank" rel="noopener">Открыть PDF</a>
+            <a class="btn btn-mustard btn-sm" href="presentation/SkillSpot_presentation.pptx" download>Скачать PowerPoint</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="logo" style="margin-bottom:10px;"><span class="dot"></span>SkillSpot</div>
+        <p style="font-size:13.5px; color:var(--sub); max-width:220px;">Кружки, секции и репетиторы рядом с домом — поиск, запись и расписание в одном месте.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Продукт</h4>
+        <a href="catalog.html">Каталог</a>
+        <a href="index.html#how">Как это работает</a>
+        <a href="blog.html">Блог</a>
+        <a href="videos.html">Видео</a>
+        <a href="app.html">Приложение</a>
+      </div>
+      <div class="foot-col">
+        <h4>Для организаторов</h4>
+        <a href="organizers.html" id="footOrgsLink">Разместить занятия</a>
+        <a href="organizers.html" id="footPricingLink">Тарифы для бизнеса</a>
+        <a href="organizers.html" id="footVerifyLink">Верификация</a>
+      </div>
+      <div class="foot-col">
+        <h4>Компания</h4>
+        <a href="about.html">О проекте</a>
+        <button type="button" class="foot-link-btn" id="footContactBtn">Контакты</button>
+        <button type="button" class="foot-link-btn" id="footSupportBtn">Поддержка</button>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 SkillSpot. Учебный проект «Digital Маркетинг», КФУ.</span>
+      <span>Казань</span>
+    </div>
+  </div>
+</footer>
+
+<script type="application/json" id="page-state">{"content":"SkillSpot — сквозной учебный проект курса «Digital Маркетинг», кафедра маркетинга КФУ, 2026 год.\n\nЗдесь можно рассказать подробнее о продукте, команде и текущей стадии разработки — нажмите «Редактировать» справа, впишите свой текст и сохраните. Текст запоминается в вашем браузере.","videoUrl":null,"videoName":null}</script>
+<script>
+/* страницы содержат разные разделы: отсутствующие элементы заменяем безопасной заглушкой */
+(function(){var g=document.getElementById.bind(document),q=document.querySelector.bind(document);
+function d(){var f=function(){return d()};return new Proxy(f,{get:function(t,k){if(k===Symbol.toPrimitive)return function(){return 0};if(k==='length')return 0;if(k==='forEach'||k==='addEventListener'||k==='removeEventListener')return function(){};if(k==='then')return undefined;if(k in t&&k!=='name')return t[k];return d()},set:function(){return true},apply:function(){return d()}})}
+document.getElementById=function(i){return g(i)||d()};document.querySelector=function(s){return q(s)||d()};})();
+</script>
+<script>
+(function(){
+  "use strict";
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- mobile menu ---- */
+  var burger = document.getElementById('burgerBtn');
+  var panel = document.getElementById('mobilePanel');
+  burger.addEventListener('click', function(){
+    var open = panel.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  panel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ panel.classList.remove('open'); burger.setAttribute('aria-expanded','false'); });
+  });
+
+  /* ---- toasts ---- */
+  var toastWrap = document.getElementById('toastWrap');
+  function showToast(msg, ms){
+    var t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = msg;
+    toastWrap.appendChild(t);
+    requestAnimationFrame(function(){ t.classList.add('show'); });
+    setTimeout(function(){
+      t.classList.remove('show');
+      t.addEventListener('transitionend', function(){ t.remove(); }, { once:true });
+      setTimeout(function(){ if(t.parentNode) t.remove(); }, 500); // fallback
+    }, ms || 2200);
+  }
+
+  /* ---- generic overlay (login / contact / article lightbox) ---- */
+  var overlay = document.getElementById('overlay');
+  var overlayBox = document.getElementById('overlayBox');
+  var overlayContent = document.getElementById('overlayContent');
+  var overlayClose = document.getElementById('overlayClose');
+  var lastFocused = null;
+
+  function openOverlay(html, opts){
+    opts = opts || {};
+    overlayContent.innerHTML = html;
+    overlayBox.classList.toggle('wide', !!opts.wide);
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lastFocused = document.activeElement;
+    requestAnimationFrame(function(){ overlay.classList.add('show'); });
+    var h3 = overlayContent.querySelector('h3, h2');
+    if(h3){ h3.id = h3.id || 'overlayTitle'; overlayBox.setAttribute('aria-labelledby', h3.id); }
+    setTimeout(function(){ overlayClose.focus(); }, reduceMotion ? 0 : 230);
+  }
+  function closeOverlay(){
+    overlay.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(function(){
+      overlay.classList.remove('open');
+      overlayContent.innerHTML = '';
+    }, reduceMotion ? 0 : 220);
+    if(lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+  overlayClose.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeOverlay(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay();
+  });
+
+  /* ---- login (demo: no real backend, but the form genuinely responds) ---- */
+  function openLoginModal(){
+    openOverlay(
+      '<h3>Вход в SkillSpot</h3>' +
+      '<p class="ov-sub">Демонстрационная версия сайта — вход не подключён к реальным аккаунтам, но форма полностью рабочая.</p>' +
+      '<form id="loginForm">' +
+        '<div class="ov-field"><label for="loginEmail">Email</label><input id="loginEmail" type="email" required placeholder="you@example.com"></div>' +
+        '<div class="ov-field"><label for="loginPass">Пароль</label><input id="loginPass" type="password" required placeholder="••••••••"></div>' +
+        '<button type="submit" class="btn btn-primary">Войти</button>' +
+      '</form>' +
+      '<p class="ov-note">Нет аккаунта? Нажмите «Найти занятие» на сайте — регистрация не требуется для просмотра каталога.</p>'
+    );
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      closeOverlay();
+      showToast('Демо-режим: вход пока не подключён к реальному серверу');
+    });
+  }
+  document.getElementById('loginOpenBtn').addEventListener('click', openLoginModal);
+  var loginMobileBtn = document.getElementById('loginOpenBtnMobile');
+  if(loginMobileBtn) loginMobileBtn.addEventListener('click', function(){ panel.classList.remove('open'); openLoginModal(); });
+
+  /* ---- contact / support modal ---- */
+  function openContactModal(subjectPreset){
+    openOverlay(
+      '<h3>Связаться с нами</h3>' +
+      '<p class="ov-sub">Напишите нам — это учебный проект, но форма работает: после отправки вы увидите подтверждение.</p>' +
+      '<form id="contactForm">' +
+        '<div class="ov-field"><label for="cName">Имя</label><input id="cName" type="text" required placeholder="Как к вам обращаться"></div>' +
+        '<div class="ov-field"><label for="cEmail">Email</label><input id="cEmail" type="email" required placeholder="you@example.com"></div>' +
+        '<div class="ov-field"><label for="cMsg">Сообщение</label><textarea id="cMsg" required placeholder="О чём хотите спросить?"></textarea></div>' +
+        '<button type="submit" class="btn btn-primary">Отправить</button>' +
+      '</form>'
+    );
+    if(subjectPreset){
+      var msg = document.getElementById('cMsg');
+      msg.value = subjectPreset;
+    }
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      closeOverlay();
+      showToast('Сообщение отправлено — спасибо! (демо-режим, без реальной отправки)');
+    });
+  }
+  document.getElementById('footContactBtn').addEventListener('click', function(){ openContactModal(''); });
+  document.getElementById('footSupportBtn').addEventListener('click', function(){ openContactModal('Нужна помощь: '); });
+  document.getElementById('placeClassesBtn').addEventListener('click', function(){
+    openContactModal('Хочу разместить свои занятия в каталоге SkillSpot. Расскажите, как подключиться: ');
+  });
+
+  /* ---- footer: pricing link switches the audience tab to "orgs" and scrolls ---- */
+  var footPricingLink = document.getElementById('footPricingLink');
+  var footOrgsLink = document.getElementById('footOrgsLink');
+  [].forEach(function(link){
+    if(!link) return;
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      showTabSafe('orgs');
+      document.getElementById('audience').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block:'start' });
+    });
+  });
+  function showTabSafe(key){ if(typeof showTab === 'function') showTab(key); }
+
+  /* ---- ripple feedback on buttons ---- */
+  if(!reduceMotion){
+    document.addEventListener('click', function(e){
+      var btn = e.target.closest ? e.target.closest('.btn') : null;
+      if(!btn) return;
+      var rect = btn.getBoundingClientRect();
+      var size = Math.max(rect.width, rect.height);
+      var r = document.createElement('span');
+      r.className = 'ripple';
+      r.style.width = r.style.height = size + 'px';
+      r.style.left = (e.clientX - rect.left - size/2) + 'px';
+      r.style.top = (e.clientY - rect.top - size/2) + 'px';
+      btn.appendChild(r);
+      r.addEventListener('animationend', function(){ r.remove(); });
+    });
+  }
+
+  /* ---- sticky header shrink + scroll-to-top button ---- */
+  var siteHeader = document.querySelector('header.site');
+  var toTopBtn = document.getElementById('toTop');
+  function onScroll(){
+    var y = window.scrollY || window.pageYOffset;
+    siteHeader.classList.toggle('scrolled', y > 10);
+    toTopBtn.classList.toggle('show', y > 600);
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+  toTopBtn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+
+  /* ---- scroll reveal for content blocks ---- */
+  if('IntersectionObserver' in window){
+    var revealEls = document.querySelectorAll(
+      '.section-title, .section-lead, .prov-card, .rev-card, .step, .stat, .tab-panel, .loyalty, .cta-band, .blog-card, .blog-feature, .blog-video-card'
+    );
+    var revealObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in-view'); revealObs.unobserve(en.target); }
+      });
+    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+    revealEls.forEach(function(el){ el.classList.add('reveal'); revealObs.observe(el); });
+  }
+
+  /* ---- subtle pointer tilt on the hero schedule card (a nice detail, never required) ---- */
+  if(!reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+    var tiltCard = document.querySelector('.schedule-card');
+    if(tiltCard){
+      tiltCard.addEventListener('mousemove', function(e){
+        var r = tiltCard.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5;
+        var py = (e.clientY - r.top) / r.height - 0.5;
+        tiltCard.style.transform = 'perspective(900px) rotateX(' + (py * -4) + 'deg) rotateY(' + (px * 5) + 'deg)';
+      });
+      tiltCard.addEventListener('mouseleave', function(){
+        tiltCard.style.transform = 'perspective(900px) rotateX(0) rotateY(0)';
+      });
+    }
+  }
+
+  /* ---- marquee content (built from category list so it stays in sync) ---- */
+  var cats = [
+    ["Спорт","sport"], ["Танцы","dance"], ["Творчество","art"], ["Музыка","music"],
+    ["Языки","lang"], ["Репетиторы","tutor"], ["Йога и фитнес","fitness"], ["Подготовка к школе","school"]
+  ];
+  var track = document.getElementById('marqueeTrack');
+  function chip(name, key){
+    var s = document.createElement('span');
+    s.className = 'm-chip';
+    s.innerHTML = '<span class="dot" style="background:var(--'+key+')"></span>'+name;
+    return s;
+  }
+  [0,1].forEach(function(){
+    cats.forEach(function(c){ track.appendChild(chip(c[0], c[1])); });
+  });
+
+  /* ---- interactive weekly planner ---- */
+  var days = ["ПН","ВТ","СР","ЧТ","ПТ","СБ","ВС"];
+  var preset = [
+    { key:"sport", label:"Плавание", color:"var(--sport)" },
+    { key:"lang", label:"Английский", color:"var(--lang)" },
+    { key:"art", label:"Рисование", color:"var(--art)" },
+    { key:"music", label:"Пианино", color:"var(--music)" }
+  ];
+  // initial state: two pre-filled slots (mon evening, sat morning), rest empty
+  var state = [
+    [{ label:"Плавание", color:"var(--sport)" }, null],
+    [null, null],
+    [null, null],
+    [null, null],
+    [null, null],
+    [{ label:"Рисование", color:"var(--art)" }, null],
+    [null, null]
+  ];
+  var weekEl = document.getElementById('week');
+  var countEl = document.getElementById('planCount');
+
+  function countFilled(){
+    var n = 0;
+    state.forEach(function(day){ day.forEach(function(s){ if(s) n++; }); });
+    return n;
+  }
+  function updateCount(){
+    var n = countFilled();
+    countEl.textContent = n + (n===1 ? ' занятие на неделе' : (n>=2 && n<=4 ? ' занятия на неделе' : ' занятий на неделе'));
+  }
+
+  function closeAllMenus(){
+    document.querySelectorAll('.add-menu.open').forEach(function(m){ m.classList.remove('open'); });
+  }
+
+  var lastChanged = null;
+
+  function renderWeek(){
+    weekEl.innerHTML = '';
+    days.forEach(function(dayName, di){
+      var dayCol = document.createElement('div');
+      dayCol.className = 'day';
+      var lbl = document.createElement('div');
+      lbl.className = 'd-label';
+      lbl.textContent = dayName;
+      dayCol.appendChild(lbl);
+
+      state[di].forEach(function(item, si){
+        if(item){
+          var slot = document.createElement('div');
+          slot.className = 'slot';
+          if(lastChanged && lastChanged[0] === di && lastChanged[1] === si) slot.classList.add('pop');
+          slot.style.background = item.color;
+          slot.textContent = item.label;
+          dayCol.appendChild(slot);
+        } else {
+          var wrapEl = document.createElement('div');
+          wrapEl.style.position = 'relative';
+          var empty = document.createElement('div');
+          empty.className = 'slot empty';
+          empty.textContent = '+';
+          empty.setAttribute('aria-label', 'Добавить занятие');
+          empty.addEventListener('click', function(e){
+            e.stopPropagation();
+            var already = wrapEl.querySelector('.add-menu');
+            var wasOpen = already && already.classList.contains('open');
+            closeAllMenus();
+            if(!wasOpen && already){ already.classList.add('open'); }
+          });
+          var menu = document.createElement('div');
+          menu.className = 'add-menu';
+          preset.forEach(function(p){
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.innerHTML = '<span class="sw" style="background:'+p.color+'"></span>'+p.label;
+            b.addEventListener('click', function(e){
+              e.stopPropagation();
+              state[di][si] = { label:p.label, color:p.color };
+              lastChanged = [di, si];
+              renderWeek();
+              updateCount();
+              showToast('Добавлено в расписание: ' + p.label + ', ' + days[di]);
+            });
+            menu.appendChild(b);
+          });
+          wrapEl.appendChild(empty);
+          wrapEl.appendChild(menu);
+          dayCol.appendChild(wrapEl);
+        }
+      });
+      weekEl.appendChild(dayCol);
+    });
+  }
+  document.addEventListener('click', closeAllMenus);
+  renderWeek();
+  updateCount();
+
+  /* ---- count-up stats ---- */
+  var counters = document.querySelectorAll('[data-count]');
+  function animateCounter(el){
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var suffix = el.getAttribute('data-suffix') || '';
+    if(reduceMotion || target === 0){ el.textContent = target + suffix; return; }
+    var dur = 900, start = null;
+    function step(ts){
+      if(!start) start = ts;
+      var p = Math.min(1, (ts - start) / dur);
+      el.textContent = Math.round(p * target) + suffix;
+      if(p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window){
+    var statObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ animateCounter(en.target); statObs.unobserve(en.target); }
+      });
+    }, { threshold:0.5 });
+    counters.forEach(function(c){ statObs.observe(c); });
+  } else {
+    counters.forEach(animateCounter);
+  }
+
+  /* ---- provider filter (animated show/hide, shared by filter chips + hero search) ---- */
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  var provCards = document.querySelectorAll('.prov-card');
+  var emptyState = document.getElementById('emptyState');
+  var catNames = { all:'Все', sport:'Спорт', lang:'Языки', art:'Творчество', music:'Музыка', dance:'Танцы', fitness:'Йога и фитнес' };
+
+  function setCardVisible(card, show){
+    if(show){
+      card.style.display = '';
+      requestAnimationFrame(function(){ card.classList.remove('prov-hide'); });
+    } else {
+      card.classList.add('prov-hide');
+      setTimeout(function(){ if(card.classList.contains('prov-hide')) card.style.display = 'none'; }, reduceMotion ? 0 : 320);
+    }
+  }
+
+  function applyFilter(key){
+    filterBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-filter') === key); });
+    var visible = 0;
+    provCards.forEach(function(card){
+      var show = (key === 'all') || (card.getAttribute('data-cat') === key);
+      setCardVisible(card, show);
+      if(show) visible++;
+    });
+    emptyState.classList.toggle('show', visible === 0);
+    return visible;
+  }
+
+  filterBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){ applyFilter(btn.getAttribute('data-filter')); });
+  });
+
+  /* ---- hero search: real filter + scroll + toast, so it behaves like live search ---- */
+  var heroSearchBtn = document.getElementById('heroSearchBtn');
+  var heroCategorySelect = document.getElementById('heroCategorySelect');
+  heroSearchBtn.addEventListener('click', function(){
+    if(heroSearchBtn.getAttribute('data-loading') === '1') return;
+    var key = heroCategorySelect.value;
+    var originalText = heroSearchBtn.textContent;
+    heroSearchBtn.setAttribute('data-loading', '1');
+    heroSearchBtn.textContent = 'Ищем…';
+    setTimeout(function(){
+      if(document.querySelectorAll('.prov-card').length===0){ location.href='catalog.html?cat='+encodeURIComponent(key); return; }
+      var n = applyFilter(key);
+      heroSearchBtn.textContent = originalText;
+      heroSearchBtn.removeAttribute('data-loading');
+      document.getElementById('providers').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block:'start' });
+      showToast(n > 0
+        ? 'Нашли ' + n + (n===1?' занятие':' занятий') + ' в категории «' + catNames[key] + '»'
+        : 'В категории «' + catNames[key] + '» пока пусто — загляните позже');
+    }, reduceMotion ? 0 : 650);
+  });
+
+  /* ---- audience tabs (crossfade instead of a hard cut) ---- */
+  var tabBtns = document.querySelectorAll('.tab-btn');
+  var tabPanels = document.querySelectorAll('.tab-panel');
+  function showTab(key){
+    tabBtns.forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-tab') === key); });
+    tabPanels.forEach(function(p){
+      var match = p.id === 'tab-' + key;
+      if(match){
+        p.style.display = 'block';
+        requestAnimationFrame(function(){ p.classList.add('active'); });
+      } else if(p.classList.contains('active')){
+        p.classList.remove('active');
+        setTimeout(function(){ if(!p.classList.contains('active')) p.style.display = 'none'; }, reduceMotion ? 0 : 300);
+      } else {
+        p.style.display = 'none';
+      }
+    });
+  }
+  tabBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){ showTab(btn.getAttribute('data-tab')); });
+  });
+
+  /* ---- reviews carousel controls + dots ---- */
+  var revScroll = document.getElementById('revScroll');
+  var revCards = document.querySelectorAll('.rev-card');
+  var revDots = document.getElementById('revDots');
+  revCards.forEach(function(card, i){
+    var d = document.createElement('button');
+    d.setAttribute('aria-label', 'Отзыв ' + (i+1));
+    if(i === 0) d.classList.add('active');
+    d.addEventListener('click', function(){
+      card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', inline:'start', block:'nearest' });
+    });
+    revDots.appendChild(d);
+  });
+  if('IntersectionObserver' in window && document.querySelectorAll('.rev-card').length){
+    var dotEls = revDots.querySelectorAll('button');
+    var revCardObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var idx = Array.prototype.indexOf.call(revCards, en.target);
+          if(idx > -1){
+            dotEls.forEach(function(d){ d.classList.remove('active'); });
+            dotEls[idx].classList.add('active');
+          }
+        }
+      });
+    }, { root:revScroll, threshold:0.6 });
+    revCards.forEach(function(c){ revCardObs.observe(c); });
+  }
+  document.getElementById('revPrev').addEventListener('click', function(){
+    revScroll.scrollBy({ left: -340, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+  document.getElementById('revNext').addEventListener('click', function(){
+    revScroll.scrollBy({ left: 340, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+
+  /* ---- loyalty progress bar reveal ---- */
+  var fill = document.getElementById('progressFill');
+  if('IntersectionObserver' in window && document.querySelectorAll('#progressFill').length){
+    var progObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          fill.style.width = fill.getAttribute('data-target') + '%';
+          progObs.unobserve(en.target);
+        }
+      });
+    }, { threshold:0.4 });
+    progObs.observe(fill);
+  } else {
+    fill.style.width = fill.getAttribute('data-target') + '%';
+  }
+
+  /* ---- editable content & video — plain client-side, no external service ----
+     Saved with localStorage, so edits persist in THIS browser on THIS device
+     across reloads. There is no server behind this file, so edits are not
+     shared with other visitors — each person editing sees only their own copy. */
+  var STORAGE_KEY = 'skillspot_page_state_v2';
+  var pageState = { content:"", videoUrl:null, sectionsVideoUrl:null };
+  var stateScriptEl = document.getElementById('page-state');
+  if(stateScriptEl){
+    try{ pageState = Object.assign(pageState, JSON.parse(stateScriptEl.textContent)); }catch(e){}
+  }
+  try{
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if(saved) pageState = Object.assign(pageState, JSON.parse(saved));
+  }catch(e){ /* localStorage unavailable (private mode, etc.) — fall back to defaults */ }
+
+  function toEmbedUrl(url){
+    var yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{6,})/);
+    if(yt) return 'https://www.youtube.com/embed/' + yt[1];
+    return null;
+  }
+  function renderContentBlock(){
+    document.getElementById('contentView').textContent = pageState.content;
+  }
+  /* uploaded video files live in IndexedDB (localStorage is too small for video) */
+  var idbP = null;
+  function idb(){
+    if(idbP) return idbP;
+    idbP = new Promise(function(res,rej){
+      var r = indexedDB.open('skillspot_media',1);
+      r.onupgradeneeded = function(){ r.result.createObjectStore('files'); };
+      r.onsuccess = function(){ res(r.result); };
+      r.onerror = function(){ rej(r.error); };
+    });
+    return idbP;
+  }
+  function idbPut(k,blob){ return idb().then(function(db){ return new Promise(function(res,rej){ var t=db.transaction('files','readwrite'); t.objectStore('files').put(blob,k); t.oncomplete=res; t.onerror=function(){rej(t.error);}; }); }); }
+  function idbGet(k){ return idb().then(function(db){ return new Promise(function(res,rej){ var q=db.transaction('files').objectStore('files').get(k); q.onsuccess=function(){res(q.result);}; q.onerror=function(){rej(q.error);}; }); }); }
+  function mountVideo(el, url, h, title){
+    var embed = toEmbedUrl(url);
+    if(embed){
+      el.innerHTML = '<iframe width="100%" height="'+h+'" style="border:0;" src="'+embed+'" title="'+title+'" allowfullscreen loading="lazy"></iframe>';
+    } else if(url.indexOf('idb:') === 0){
+      el.innerHTML = '<div class="video-placeholder">Загружаю видео…</div>';
+      idbGet(url.slice(4)).then(function(b){
+        if(!b){ el.innerHTML = '<div class="video-placeholder">Файл не найден в этом браузере. Загрузите видео заново.</div>'; return; }
+        el.innerHTML = '<video controls playsinline preload="metadata"></video>';
+        el.querySelector('video').src = URL.createObjectURL(b);
+      }).catch(function(){ el.innerHTML = '<div class="video-placeholder">Не удалось открыть сохранённое видео.</div>'; });
+    } else {
+      el.innerHTML = '<video controls playsinline preload="metadata"></video>';
+      el.querySelector('video').src = url;
+    }
+  }
+  function renderSectionsVideoBlock(){
+    var v = document.getElementById('sectionsVideoView');
+    if(!pageState.sectionsVideoUrl){ v.innerHTML = ''; return; }
+    mountVideo(v, pageState.sectionsVideoUrl, 420, 'Видео о секциях');
+  }
+  renderContentBlock();
+  renderSectionsVideoBlock();
+
+  // Editing is always available here — this file has no server-side permissions,
+  // it is simply your own local copy of the page.
+  document.querySelectorAll('.edit-toggle').forEach(function(b){ b.style.display = 'inline-flex'; });
+
+  document.querySelectorAll('.edit-toggle').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var t = btn.getAttribute('data-edit-target');
+      if(t === 'content'){
+        document.getElementById('contentTextarea').value = pageState.content;
+        document.getElementById('contentView').hidden = true;
+        document.getElementById('contentEdit').hidden = false;
+      } else if(t === 'sections-video'){
+        document.getElementById('sectionsVideoUrlInput').value = (pageState.sectionsVideoUrl||'').indexOf('idb:')===0 ? '' : (pageState.sectionsVideoUrl || '');
+        document.getElementById('sectionsVideoView').hidden = true;
+        document.getElementById('sectionsVideoEdit').hidden = false;
+      }
+    });
+  });
+  document.getElementById('contentCancel').addEventListener('click', function(){
+    document.getElementById('contentEdit').hidden = true;
+    document.getElementById('contentView').hidden = false;
+  });
+  document.getElementById('sectionsVideoCancel').addEventListener('click', function(){
+    document.getElementById('sectionsVideoEdit').hidden = true;
+    document.getElementById('sectionsVideoView').hidden = false;
+  });
+
+  function persistPage(){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(pageState)); }
+    catch(e){ /* storage full or unavailable — page still works, just won't remember on reload */ }
+  }
+
+  document.getElementById('contentSave').addEventListener('click', function(){
+    pageState.content = document.getElementById('contentTextarea').value;
+    renderContentBlock();
+    document.getElementById('contentEdit').hidden = true;
+    document.getElementById('contentView').hidden = false;
+    persistPage();
+    showToast('Текст сохранён в этом браузере');
+  });
+
+  document.getElementById('sectionsVideoSave').addEventListener('click', function(){
+    var url = document.getElementById('sectionsVideoUrlInput').value.trim();
+    pageState.sectionsVideoUrl = url || null;
+    renderSectionsVideoBlock();
+    document.getElementById('sectionsVideoEdit').hidden = true;
+    document.getElementById('sectionsVideoView').hidden = false;
+    persistPage();
+    showToast(url ? 'Видео о секциях добавлено' : 'Ссылка на видео очищена');
+  });
+
+  function wireFile(inputId, key, stateKey, render, viewId, editId){
+    document.getElementById(inputId).addEventListener('change', function(e){
+      var f = e.target.files && e.target.files[0];
+      if(!f) return;
+      showToast('Сохраняю видео…');
+      idbPut(key, f).then(function(){
+        pageState[stateKey] = 'idb:'+key;
+        persistPage(); render();
+        document.getElementById(editId).hidden = true;
+        document.getElementById(viewId).hidden = false;
+        showToast('Видео загружено: ' + f.name);
+      }).catch(function(){ showToast('Не удалось сохранить файл (мало места в браузере). Вставьте ссылку.'); });
+      e.target.value = '';
+    });
+  }
+  wireFile('sectionsVideoFile','sectionsVideo','sectionsVideoUrl',renderSectionsVideoBlock,'sectionsVideoView','sectionsVideoEdit');
+
+  /* reels gallery: click opens the clip in the overlay player */
+  document.querySelectorAll('.reel').forEach(function(b){
+    b.addEventListener('click', function(){
+      var id = b.getAttribute('data-v');
+      openOverlay('<h3>'+b.getAttribute('data-t')+'</h3><p class="ov-sub">'+b.getAttribute('data-d')+'</p>' +
+        '<video class="ov-video" src="videos/'+id+'.mp4" poster="videos/'+id+'.jpg" controls autoplay playsinline></video>');
+    });
+  });
+
+  /* presentation slider */
+  (function(){
+    var imgs = document.querySelectorAll('#deckStage img'), th = document.querySelectorAll('#deckThumbs button'), cur = 0, n = imgs.length, timer;
+    function go(i){
+      cur = (i + n) % n;
+      imgs.forEach(function(im,k){ im.classList.toggle('on', k===cur); });
+      th.forEach(function(t,k){ t.classList.toggle('on', k===cur); });
+      document.getElementById('deckCount').textContent = (cur+1) + ' / ' + n;
+    }
+    document.getElementById('deckPrev').addEventListener('click', function(){ go(cur-1); });
+    document.getElementById('deckNext').addEventListener('click', function(){ go(cur+1); });
+    th.forEach(function(t){ t.addEventListener('click', function(){ go(+t.getAttribute('data-i')); }); });
+    var stage = document.getElementById('deckStage'), x0=null;
+    stage.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+    stage.addEventListener('touchend', function(e){ if(x0===null) return; var d = e.changedTouches[0].clientX - x0; if(Math.abs(d)>40) go(cur + (d<0?1:-1)); x0=null; });
+    document.addEventListener('keydown', function(e){
+      var r = stage.getBoundingClientRect();
+      if(r.top < innerHeight && r.bottom > 0 && !overlay.classList.contains('open') && !/INPUT|TEXTAREA/.test((document.activeElement||{}).tagName||'')){
+        if(e.key==='ArrowRight') go(cur+1); if(e.key==='ArrowLeft') go(cur-1);
+      }
+    });
+  })();
+
+  /* all six blog posts open in the overlay */
+  var POSTS = [{"tag": "Новость", "img": "lesson", "title": "SkillSpot открывается в Казани: 412 студий и репетиторов уже на карте", "body": ["Мы собрали кружки, секции, танцевальные студии и репетиторов Казани в одном каталоге. Раньше, чтобы найти подходящее занятие, родителям приходилось листать десятки сайтов, чатов и групп. Теперь всё находится в одном месте.", "<h2>Что внутри</h2><ul><li>Каталог из 412 студий, секций и репетиторов на карте города.</li><li>12 категорий: спорт, танцы, музыка, творчество, языки, подготовка к школе, йога и фитнес и другие.</li><li>Фильтры по району, возрасту ребёнка и цене — показываются только подходящие занятия.</li></ul>", "<h2>Как записаться</h2><p>Выберите занятие, сравните отзывы и расписание и запишитесь онлайн. Звонить администратору не нужно, а свободные места видны сразу.</p>", "<p>Мы продолжаем добавлять новые студии — если вы организатор, разместить занятия можно в разделе «Для организаторов».</p>"]}, {"tag": "Советы", "img": "dance", "title": "Как выбрать кружок для ребёнка: 5 шагов", "body": ["Кружков много, и легко выбрать то, что не подойдёт по возрасту, расписанию или характеру. Короткая версия нашего гида — пять шагов.", "<h2>1. Определите цель</h2><p>Здоровье, творчество, подготовка к школе, новые друзья или конкретный навык — от цели зависит направление.</p>", "<h2>2. Учтите возраст и темп группы</h2><p>Занятия для дошкольников строятся вокруг игры, у школьников они более структурированные. Уточните возрастной диапазон группы.</p>", "<h2>3. Выберите место рядом с домом</h2><p>Дорога и спешка быстро отбивают желание ходить. Сверяйте расписание с учёбой и другими занятиями.</p>", "<h2>4. Прочитайте отзывы</h2><p>Рейтинг и отзывы других родителей показывают то, что не написано на сайте студии.</p>", "<h2>5. Начните с пробного занятия</h2><p>Пробное снимает большую часть сомнений. Многие студии в SkillSpot предлагают первое занятие бесплатно.</p>", "<p>Полная пошаговая инструкция на семь шагов — в разделе блога «Гид для родителей».</p>"]}, {"tag": "Аналитика", "img": "music", "title": "Что чаще всего ищут родители", "body": ["По данным Яндекс Вордстат, среди запросов родителей лидируют музыка для детей, подготовка к школе, танцы и спортивные секции.", "<h2>Что это значит для каталога</h2><ul><li>Музыкальные занятия и вокал — одно из самых востребованных направлений.</li><li>Подготовка к школе стабильно ищут перед началом учебного года.</li><li>Танцы и спортивные секции пользуются спросом круглый год.</li></ul>", "<h2>Что мы делаем</h2><p>Мы расширяем каталог именно в этих направлениях и добавляем больше студий с пробными занятиями, чтобы родителям было из чего выбирать.</p>"]}, {"tag": "Обновление", "img": "planner", "title": "Новое: расписание само появляется в календаре", "body": ["После записи занятие и напоминание о нём попадают в ваш личный календарь. Больше не нужно вручную переписывать время в заметки и переносить его между чатами.", "<h2>Как это выглядит</h2><p>Если у ребёнка плавание во вторник, английский в среду и рисование в субботу — вся неделя видна сразу, с напоминаниями перед каждым занятием.</p>", "<h2>Что ещё</h2><ul><li>История визитов и быстрая повторная запись.</li><li>Свободные слоты видны в реальном времени.</li><li>Расписание можно открыть в приложении SkillSpot.</li></ul>"]}, {"tag": "Для организаторов", "img": "calendar", "title": "Студиям и репетиторам: клиенты, оплата и расписание в одном месте", "body": ["Разместите занятия в каталоге SkillSpot и получайте записи от родителей, которые уже ищут кружки рядом с домом.", "<h2>Что вы получаете</h2><ul><li>Поток новых клиентов из каталога и поиска.</li><li>Приём онлайн-оплаты без отдельной кассы.</li><li>Управление расписанием и записями в одном кабинете.</li><li>Карточку с отзывами, которая повышает доверие новых клиентов.</li></ul>", "<h2>Доверие родителей</h2><p>Мы проверяем документы организаторов — родители видят, что студия прошла проверку.</p>", "<p>Чтобы подключиться, нажмите кнопку ниже и оставьте заявку.</p>"], "cta": "org"}, {"tag": "Лояльность", "img": "bonus", "title": "Баллы за занятия и бонус за друга", "body": ["За каждую оплаченную запись начисляются баллы — их можно списать на следующее занятие.", "<h2>Как это работает</h2><ul><li>Записываетесь и оплачиваете занятие — получаете баллы.</li><li>Накопленные баллы списываются при следующей записи.</li><li>Чем больше занимаетесь, тем выше уровень программы лояльности.</li></ul>", "<h2>Приведите друга</h2><p>Если друг запишется по вашей рекомендации, бонус получите вы оба.</p>"]}];
+  function openPost(i){
+    var d = POSTS[i];
+    var html = '<div class="post-cover" role="img" aria-label="" style="background-image:url(photos/'+d.img+'.jpg);' + (d.img==='planner' ? 'background-position:center 65%;' : '') + '"></div>' +
+      '<span class="post-tag">'+d.tag+'</span>' +
+      '<h3 id="overlayTitle">'+d.title+'</h3>' +
+      '<p class="article-meta">SkillSpot · Блог</p>' +
+      '<div class="article-body">' + d.body.map(function(b){ return b.charAt(0)==='<' ? b : '<p>'+b+'</p>'; }).join('') + '</div>' +
+      '<div class="post-cta"><button type="button" class="btn btn-primary" id="postCta">' + (d.cta==='org' ? 'Разместить свои занятия' : 'Найти занятие') + '</button></div>';
+    openOverlay(html, { wide:true });
+    document.getElementById('postCta').addEventListener('click', function(){
+      closeOverlay();
+      if(d.cta==='org'){
+        setTimeout(function(){ location.href='organizers.html'; }, 260);
+      } else {
+        setTimeout(function(){ location.href='catalog.html'; }, 260);
+      }
+    });
+  }
+  document.querySelectorAll('.blog-card[data-post]').forEach(function(c){
+    var i = +c.getAttribute('data-post');
+    c.addEventListener('click', function(){ openPost(i); });
+    c.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); openPost(i); } });
+  });
+
+  /* ---- full blog article, opened in the overlay lightbox ---- */
+  var ARTICLE_HTML =
+    '<h3 id="overlayTitle">Как выбрать кружок для ребёнка: пошаговая инструкция для родителей</h3>' +
+    '<p class="article-meta">SkillSpot · Блог · /blog/kak-vybrat-kruzhok-dlya-rebenka</p>' +
+    '<div class="article-body">' +
+    '<p>Вопрос «куда отдать ребёнка» рано или поздно встаёт перед каждой семьёй. Кружков, секций и студий много, и легко выбрать то, что не подойдёт по возрасту, расписанию или характеру. Ниже семь шагов, которые помогут принять решение спокойно.</p>' +
+    '<h2>Шаг 1. Определите цель занятий</h2>' +
+    '<p>Сначала решите, зачем вам кружок. Это может быть здоровье и физическая активность, творческое развитие, подготовка к школе, новые друзья или освоение конкретного навыка. От цели зависит направление: спортивные секции, танцы, музыка, рисование, программирование или иностранные языки.</p>' +
+    '<h2>Шаг 2. Спросите самого ребёнка</h2>' +
+    '<p>Интерес ребёнка важнее моды на занятия. Покажите ему несколько вариантов, посмотрите вместе фото и видео студий. Если ребёнок сам выбрал занятие, он дольше сохраняет мотивацию.</p>' +
+    '<h2>Шаг 3. Учтите возраст и уровень подготовки</h2>' +
+    '<p>Занятия для детей разных возрастов отличаются форматом, длительностью и нагрузкой. Группа для дошкольников строится вокруг игры, у школьников и подростков занятия более структурированные. Уточните возрастной диапазон группы и то, нужна ли предварительная подготовка.</p>' +
+    '<h2>Шаг 4. Выберите удобное место и время</h2>' +
+    '<p>Хороший кружок должен вписываться в неделю, иначе дорога и спешка быстро отобьют желание ходить. Ищите занятия рядом с домом или школой и сверяйте расписание с учёбой и другими занятиями. В SkillSpot фильтры по району, возрасту и цене показывают только те варианты, которые вам подходят.</p>' +
+    '<h2>Шаг 5. Сравните цены и условия</h2>' +
+    '<p>Посмотрите стоимость разового занятия и абонемента, размер группы, длительность урока и правила переноса. Сравнивайте не только цену, но и то, что в неё входит: инвентарь, форма, концертные выступления.</p>' +
+    '<h2>Шаг 6. Прочитайте отзывы и проверьте организатора</h2>' +
+    '<p>Рейтинг и отзывы других родителей показывают то, что не написано на сайте студии: как тренер ведёт себя с детьми, соблюдается ли расписание, нравятся ли детям занятия. Обращайте внимание на документы и опыт педагога. Особенно важно это для занятий с детьми.</p>' +
+    '<h2>Шаг 7. Начните с пробного занятия</h2>' +
+    '<p>Пробное занятие снимает большую часть сомнений. Посмотрите, как ребёнок реагирует, комфортно ли ему в группе, понятно ли объясняет преподаватель. Многие студии в SkillSpot предлагают первое занятие бесплатно.</p>' +
+    '<h2>Частые ошибки при выборе кружка</h2>' +
+    '<ul>' +
+    '<li>Записывать ребёнка сразу на несколько занятий, из-за чего не остаётся свободного времени.</li>' +
+    '<li>Выбирать только по цене или близости к дому.</li>' +
+    '<li>Не обсуждать выбор с ребёнком.</li>' +
+    '<li>Бросать занятие после первой трудности, не дав ему шанса.</li>' +
+    '</ul>' +
+    '<h2>Как не запутаться в расписании</h2>' +
+    '<p>Когда занятий несколько, расписание быстро превращается в головоломку. После записи в SkillSpot занятие и напоминание о нём автоматически попадают в ваш календарь, переносить время вручную не нужно.</p>' +
+    '<h2>Итог</h2>' +
+    '<p>Выбирайте занятие по цели, возрасту и интересам ребёнка, сравнивайте варианты по отзывам и начинайте с пробного занятия. Найти кружок, секцию или репетитора в Казани можно в каталоге SkillSpot. Сравнивайте цены, читайте отзывы и записывайтесь онлайн без звонков.</p>' +
+    '<button type="button" class="btn btn-mustard" id="articleCta">Найти занятие рядом</button>' +
+    '</div>';
+
+  document.getElementById('openArticleBtn').addEventListener('click', function(){
+    openOverlay(ARTICLE_HTML, { wide:true });
+    var cta = document.getElementById('articleCta');
+    if(cta){
+      cta.addEventListener('click', function(){
+        closeOverlay();
+        location.href='catalog.html';
+      });
+    }
+  });
+
+  /* ---- scrollspy rail ---- */
+  var railLinks = document.querySelectorAll('[data-rail]');
+  var sections = Array.prototype.map.call(railLinks, function(a){
+    return document.querySelector(a.getAttribute('href'));
+  });
+  if('IntersectionObserver' in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          var idx = sections.indexOf(en.target);
+          if(idx > -1){
+            railLinks.forEach(function(l){ l.classList.remove('active'); });
+            railLinks[idx].classList.add('active');
+          }
+        }
+      });
+    }, { rootMargin:'-45% 0px -45% 0px' });
+    sections.forEach(function(s){ if(s) spy.observe(s); });
+  }
+})();
+</script>
+
 </body>
 </html>
